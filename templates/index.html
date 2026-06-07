@@ -1,1 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>妝搭顧問館 - AI 智能美學分析</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #faf6f0; color: #4a3e3d; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        .navbar-brand { font-weight: bold; color: #8c6239 !important; }
+        .card { border: none; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .btn-consultant { background-color: #8c6239; color: white; border: none; }
+        .btn-consultant:hover { background-color: #734d2a; color: white; }
+        .result-box { display: none; background-color: #fff; border-left: 5px solid #8c6239; }
+    </style>
+</head>
+<body>
 
+    <nav class="navbar navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand">✨ 妝搭顧問館 AI Consultant</span>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card p-4 bg-white mb-4">
+                    <h3 class="mb-4 text-center">開始您的個人專屬美學分析</h3>
+                    
+                    <form id="consultantForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="user_photo" class="form-label">上傳個人照片 (選填，可直接進行 AI 試衣體驗)</label>
+                            <input class="form-control" type="file" id="user_photo" name="user_photo" accept="image/*">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="skin_tone" class="form-label">我的膚色偏向</label>
+                                <select class="form-select" id="skin_tone" name="skin_tone">
+                                    <option value="">請選擇（預設自然）</option>
+                                    <option value="暖色調">暖色調 (偏黃/健康)</option>
+                                    <option value="冷色調">冷色調 (偏白/粉紅)</option>
+                                    <option value="自然膚色">自然膚色</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                                <label for="style" class="form-label">期望風格</label>
+                                <select class="form-select" id="style" name="style">
+                                    <option value="">請選擇（預設休閒）</option>
+                                    <option value="日常休閒">日常休閒</option>
+                                    <option value="職場幹練">職場幹練</option>
+                                    <option value="溫柔約會">溫柔約會</option>
+                                    <option value="個性高街">個性高街</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label for="occasion" class="form-label">穿搭場合</label>
+                                <select class="form-select" id="occasion" name="occasion">
+                                    <option value="">請選擇（預設外出）</option>
+                                    <option value="日常外出">日常外出</option>
+                                    <option value="商務面試">商務面試</option>
+                                    <option value="朋友聚會">朋友聚會</option>
+                                    <option value="正式晚宴">正式晚宴</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-3">
+                            <button type="submit" class="btn btn-consultant btn-lg">生成我的妝搭報告 & 虛擬試衣</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="resultSection" class="card p-4 result-box">
+                    <h4 class="text-dark mb-3">✨ 您的專屬美學診斷報告</h4>
+                    <p id="imageStatus" class="text-muted small"></p>
+                    <hr>
+                    <div class="mb-3">
+                        <h5>🎨 色彩美學分析</h5>
+                        <p id="colorAnalysis"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h5>👗 服裝搭配方案</h5>
+                        <p id="outfitSuggestion"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h5>💄 精緻妝容建議</h5>
+                        <p id="makeupTip"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h5>🖼️ AI 虛擬試衣狀態</h5>
+                        <p id="tryonPreview" class="badge bg-secondary text-wrap fs-6"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('consultantForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if(data.status === 'success') {
+                    // 填入資料到結果區
+                    document.getElementById('imageStatus').innerText = data.image_handling;
+                    document.getElementById('colorAnalysis').innerText = data.report.color_analysis;
+                    document.getElementById('outfitSuggestion').innerText = data.report.outfit_suggestion;
+                    document.getElementById('makeupTip').innerText = data.report.makeup_tip;
+                    document.getElementById('tryonPreview').innerText = data.report.virtual_tryon_preview;
+                    
+                    // 顯示結果區
+                    document.getElementById('resultSection').style.display = 'block';
+                    // 滾動到結果畫面
+                    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch (error) {
+                alert('報告生成失敗，請稍後再試！');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
