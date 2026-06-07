@@ -4,44 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>妝搭顧問館 - 旗艦級 AI 智能美學大數據分析</title>
+    <!-- 引入 Bootstrap 5 與 Google 字體 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { background-color: #faf6f0; color: #4a3e3d; font-family: 'Helvetica Neue', Arial, sans-serif; }
-        .navbar-brand { font-weight: bold; color: #8c6239 !important; font-size: 1.6rem; }
-        .card { border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(140, 98, 57, 0.06); }
-        .btn-consultant { background-color: #8c6239; color: white; border: none; font-weight: bold; padding: 15px; transition: all 0.3s; }
-        .btn-consultant:hover { background-color: #734d2a; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .result-box { display: none; background-color: #fff; border-left: 8px solid #8c6239; animation: slideUp 0.6s ease-in-out; }
+        :root { --main-color: #8c6239; --hover-color: #734d2a; --bg-color: #faf6f0; --text-color: #4a3e3d; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }
+        
+        /* 高級時尚封面 (Cover Hero) */
+        .hero-cover {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; }
+        .hero-subtitle { font-size: 1.8rem; font-weight: 300; letter-spacing: 4px; margin-bottom: 30px; }
+        .btn-discover { border: 2px solid #ffffff; color: #ffffff; background: transparent; padding: 12px 35px; font-size: 1.1rem; border-radius: 30px; font-weight: bold; transition: all 0.3s ease; text-decoration: none; }
+        .btn-discover:hover { background-color: #ffffff; color: var(--main-color); transform: translateY(-3px); }
+
+        /* 導覽列與卡片 */
+        .navbar-brand { font-weight: bold; color: var(--main-color) !important; font-size: 1.6rem; }
+        .card { border: none; border-radius: 24px; box-shadow: 0 12px 40px rgba(140, 98, 57, 0.06); margin-top: -50px; position: relative; z-index: 10; }
+        .form-section { padding: 60px 0; }
+        .btn-consultant { background-color: var(--main-color); color: white; border: none; font-weight: bold; padding: 18px; border-radius: 12px; transition: all 0.3s; }
+        .btn-consultant:hover { background-color: var(--hover-color); color: white; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(140, 98, 57, 0.2); }
+        
+        /* 結果展示區與動畫 */
+        .result-box { display: none; background-color: #fff; border-left: 8px solid var(--main-color); animation: slideUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
         .section-title { color: #5c4033; font-weight: bold; border-bottom: 2px solid #eaddcf; padding-bottom: 10px; margin-bottom: 25px; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* 系統完善：讀取中動畫 (Spinner) */
+        .loading-spinner { display: none; margin: 20px auto; text-align: center; }
+        .loading-spinner .spinner-border { color: var(--main-color); width: 3rem; height: 3rem; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-light bg-white shadow-sm mb-4 py-3">
+    <!-- [完善系統] 階段一：雜誌質感奢華封面 -->
+    <div class="hero-cover">
+        <h1 class="hero-title">✨ 妝搭顧問館</h1>
+        <p class="hero-subtitle">AI SMART BEAUTY & STYLE SPACE</p>
+        <a href="#mainContent" class="btn-discover">開啟您的美學基因測算</a>
+    </div>
+
+    <!-- 頂部精緻導覽列 -->
+    <nav class="navbar navbar-light bg-white shadow-sm py-3" id="mainContent">
         <div class="container">
-            <span class="navbar-brand">✨ 妝搭顧問館 <small class="fs-6 text-muted">Ultimate AI Beauty & Style Space</small></span>
+            <span class="navbar-brand">✨ 妝搭顧問館 <small class="fs-6 text-muted">AI Style Consultant Platform</small></span>
         </div>
     </nav>
 
-    <div class="container mb-5">
+    <div class="container form-section mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 
-                <div class="card p-4 p-md-5 bg-white mb-4">
+                <!-- 核心 AI 顧問分析表單 -->
+                <div class="card p-4 p-md-5 bg-white mb-5 shadow">
                     <h2 class="text-center mb-2" style="color: #5c4033; font-weight: 800;">全維度 AI 個人美學測算</h2>
-                    <p class="text-muted text-center mb-5">免除繁瑣限制，未填項目將啟動大數據智慧媒合機制</p>
+                    <p class="text-muted text-center mb-5">所有項目皆為選填，若未填寫將啟動大數據智慧媒合機制</p>
                     
                     <form id="consultantForm" enctype="multipart/form-data">
                         
+                        <!-- 1. 照片上傳 -->
                         <div class="mb-4">
                             <label for="user_photo" class="form-label fw-bold fs-5">1. 上傳個人照片 / 身型全身照（選填）</label>
                             <input class="form-control form-control-lg" type="file" id="user_photo" name="user_photo" accept="image/*">
                         </div>
 
                         <div class="row g-4 mb-4">
+                            <!-- 2. 市面所有膚色與四季色彩 -->
                             <div class="col-md-6">
                                 <label for="skin_tone" class="form-label fw-bold">2. 四季個人色彩學 / 膚色分類</label>
                                 <select class="form-select form-select-lg" id="skin_tone" name="skin_tone">
@@ -51,33 +93,35 @@
                                     <option value="夏季型 (冷亮膚色)">夏季型 (冷亮膚色 - 柔和粉藍調)</option>
                                     <option value="冬季型 (冷暗膚色)">冬季型 (冷暗膚色 - 艷麗純冷調)</option>
                                     <option value="白皙膚色">象牙清透粉白皙膚色</option>
-                                    <option value="自然中性色調">亞洲標準自然中性色調</option>
+                                    <option value="亞洲標準自然中性色調">亞洲標準自然中性色調</option>
                                     <option value="小麥/健康膚色">陽光小麥色 / 運動健康古銅色</option>
                                 </select>
                             </div>
                             
+                            <!-- 3. 市面所有主流身型 -->
                             <div class="col-md-6">
                                 <label for="body_type" class="form-label fw-bold">3. 人體骨架與身型線條</label>
                                 <select class="form-select form-select-lg" id="body_type" name="body_type">
                                     <option value="">請選擇身型結構（預設勻稱體態）</option>
-                                    <option value="勻稱身型">標準勻稱 / 肌肉線條平衡體態</option>
-                                    <option value="梨形身型 (下半身豐滿)">梨形身型 (胯寬、大腿豐滿、上身纖細)</option>
+                                    <option value="標準勻稱 / 肌肉線條平衡體態">標準勻稱 / 肌肉線條平衡體態</option>
+                                    <option value="梨形身型 (胯寬、大腿豐滿)">梨形身型 (胯寬、大腿豐滿、上身纖細)</option>
                                     <option value="蘋果身型 (腰腹較圓潤)">蘋果身型 (腰腹圓潤、四肢相對纖細)</option>
-                                    <option value="倒三角身型 (上寬下窄)">倒三角身型 (肩膀寬闊、上寬下窄、骨架大)</option>
-                                    <option value="沙漏身型 (玲瓏有緻)">沙漏身型 (胸豐、臀翹、腰部極度纖細)</option>
-                                    <option value="矩形/勻稱身型">矩形/ H 型身型 (腰線不明顯、骨感骨架)</option>
+                                    <option value="倒三角身型 (肩膀寬闊、骨架大)">倒三角身型 (肩膀寬闊、上寬下窄、骨架大)</option>
+                                    <option value="沙漏身型 (胸豐臀翹腰細)">沙漏身型 (胸豐、臀翹、腰部極度纖細)</option>
+                                    <option value="矩形 / H 型身型 (腰線不明顯)">矩形 / H 型身型 (腰線不明顯、骨感骨架)</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row g-4 mb-4">
+                            <!-- 4. 市面所有流行穿搭風格 -->
                             <div class="col-md-6">
                                 <label for="style" class="form-label fw-bold">4. 意向穿搭美學風格</label>
                                 <select class="form-select form-select-lg" id="style" name="style">
                                     <option value="">請選擇目標風格（預設美式休閒）</option>
                                     <option value="日常美式休閒">日常美式休閒 (舒適丹寧/T-Shirt)</option>
                                     <option value="Clean Fit 極簡風">Clean Fit 極簡版型風 (俐落、低調高質感)</option>
-                                    <option value="Old Money 老錢風">Old Money 老錢針織風 (低調奢華、靜奢美學)</option>
+                                    <option value="Old Money 老錢風">Old Money 老錢風 (低調奢華、靜奢美學)</option>
                                     <option value="千金溫柔約會風">千金柔美約會風 (小香風、溫柔裙裝)</option>
                                     <option value="Cottagecore 法式浪漫">Cottagecore 法式復古浪漫 (碎花、方領、慵懶)</option>
                                     <option value="日系 City Boy 寬鬆風">日系 City Boy 寬鬆工裝風 (山系、寬鬆疊穿)</option>
@@ -87,6 +131,7 @@
                                 </select>
                             </div>
 
+                            <!-- 5. 跨場域全場合分類 -->
                             <div class="col-md-6">
                                 <label for="occasion" class="form-label fw-bold">5. 穿搭鎖定應用場景</label>
                                 <select class="form-select form-select-lg" id="occasion" name="occasion">
@@ -102,13 +147,21 @@
                             </div>
                         </div>
 
+                        <!-- 送出按鈕 -->
                         <div class="d-grid gap-2 mt-5">
-                            <button type="submit" class="btn btn-consultant btn-lg fs-5 shadow-sm">核心智慧分析：生成我的大數據妝搭報告</button>
+                            <button type="submit" id="submitBtn" class="btn btn-consultant btn-lg fs-5 shadow-sm">核心智慧分析：生成我的大數據妝搭報告</button>
                         </div>
                     </form>
+
+                    <!-- [完善系統] 讀取動畫反饋區 -->
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner-border" role="status"></div>
+                        <p class="text-muted mt-2 fw-medium">AI 正在抓取市面流行趨勢並進行色彩矩陣算力配置，請稍候...</p>
+                    </div>
                 </div>
 
-                <div id="resultSection" class="card p-4 p-md-5 result-box mb-5">
+                <!-- AI 分析結果展示區 -->
+                <div id="resultSection" class="card p-4 p-md-5 result-box mb-5 shadow">
                     <h3 class="mb-2" style="color: #5c4033; font-weight: bold;">✨ 您的奢華美學全維度報告</h3>
                     <p id="imageStatus" class="text-success small mb-4 fw-medium"></p>
                     <hr>
@@ -129,12 +182,13 @@
                     </div>
                     
                     <div class="mb-2">
-                        <h5 class="fw-bold text-dark mb-2">🖼️ 4. AI 3D 模擬試衣預覽狀態</h5>
+                        <h5 class="fw-bold text-dark mb-2">🖼 "4. AI 3D 模擬試衣預覽狀態</h5>
                         <p id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2"></p>
                     </div>
                 </div>
 
-                <div class="card p-4 p-md-5 bg-white mb-4">
+                <!-- 影片教學專區 -->
+                <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
                     <h4 class="section-title">📺 顧問館精選：頂級穿搭與個人色彩影片教學</h4>
                     <div class="row g-4">
                         <div class="col-md-6">
@@ -152,10 +206,11 @@
                     </div>
                 </div>
 
-                <div class="card p-4 p-md-5 bg-white mb-5">
+                <!-- 實體顧問館導航：Google 地圖 -->
+                <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
                     <h4 class="section-title">📍 顧問館線下實體門市導航 (鄰近大雅校區大大停車場)</h4>
                     <p class="text-muted small mb-3">若需要一對一實體布料測色與面部輪廓分析，歡迎親臨實體概念館：</p>
-                    <div class="rounded-3 overflow-hidden shadow-sm" style="height: 400px;">
+                    <div class="rounded-4 overflow-hidden shadow-sm" style="height: 410px;">
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m121.5369!2d25.1368!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ade56ffda877%3A0xe6bf4ea6ea4b97fa!2z5Lit6I-v5paH5YyW5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1710000000000!5m2!1szh-TW!2stw" 
                             width="100%" 
@@ -172,9 +227,20 @@
         </div>
     </div>
 
+    <!-- 前後端異步 Fetch API 串接 -->
     <script>
         document.getElementById('consultantForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            // [完善系統] 防重複點擊與防護機制
+            const submitBtn = document.getElementById('submitBtn');
+            const spinner = document.getElementById('loadingSpinner');
+            const resultBox = document.getElementById('resultSection');
+            
+            submitBtn.disabled = true;
+            spinner.style.display = 'block';
+            resultBox.style.display = 'none'; // 重新計算時先隱藏舊報告
+            
             const formData = new FormData(this);
             
             try {
@@ -191,12 +257,17 @@
                     document.getElementById('makeupTip').innerText = data.report.makeup_tip;
                     document.getElementById('tryonPreview').innerText = data.report.virtual_tryon_preview;
                     
-                    document.getElementById('resultSection').style.display = 'block';
-                    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+                    // 顯示新報告並流暢滾動
+                    resultBox.style.display = 'block';
+                    resultBox.scrollIntoView({ behavior: 'smooth' });
                 }
             } catch (error) {
-                alert('美學報告計算超時，請檢查本機伺服器後台狀態！');
+                alert('大數據算力連線異常，請確認本機伺服器後台狀態！');
                 console.error(error);
+            } finally {
+                // [完善系統] 計算結束，恢復按鈕可用狀態
+                submitBtn.disabled = false;
+                spinner.style.display = 'none';
             }
         });
     </script>
