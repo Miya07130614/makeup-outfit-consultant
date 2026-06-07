@@ -29,9 +29,10 @@
         
         .result-box { display: none; background-color: #fff; border-left: 8px solid var(--main-color); animation: slideUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
         .section-title { color: #5c4033; font-weight: bold; border-bottom: 2px solid #eaddcf; padding-bottom: 10px; margin-bottom: 25px; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
+        .btn-youtube-jump { background-color: #ff0000; color: white; font-weight: bold; border-radius: 12px; padding: 15px 25px; font-size: 1.1rem; transition: all 0.3s; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-youtube-jump:hover { background-color: #cc0000; color: white; transform: scale(1.02); }
+
         .loading-spinner { display: none; margin: 20px auto; text-align: center; }
         .loading-spinner .spinner-border { color: var(--main-color); width: 3rem; height: 3rem; }
 
@@ -40,14 +41,12 @@
 </head>
 <body>
 
-    <!-- 奢華大片感封面 -->
     <div class="hero-cover">
         <h1 class="hero-title">✨ 妝搭顧問館</h1>
         <p class="hero-subtitle">AI SMART BEAUTY & STYLE SPACE</p>
         <a href="#mainContent" class="btn-discover">開啟您的美學基因測算</a>
     </div>
 
-    <!-- 精緻導覽列 -->
     <nav class="navbar navbar-light bg-white shadow-sm py-3" id="mainContent">
         <div class="container">
             <span class="navbar-brand">✨ 妝搭顧問館 <small class="fs-6 text-muted">AI Style Consultant Platform</small></span>
@@ -58,7 +57,6 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 
-                <!-- AI 顧問分析表單 -->
                 <div class="card p-4 p-md-5 bg-white mb-5 shadow">
                     <h2 class="text-center mb-2" style="color: #5c4033; font-weight: 800;">全維度 AI 個人美學測算</h2>
                     <p class="text-muted text-center mb-5">所有項目皆為選填，若未填寫將啟動大數據智慧媒合機制</p>
@@ -137,11 +135,10 @@
 
                     <div class="loading-spinner" id="loadingSpinner">
                         <div class="spinner-border" role="status"></div>
-                        <p class="text-muted mt-2 fw-medium">AI 正在配置風格矩陣並計算最近實體門市，請稍候...</p>
+                        <p class="text-muted mt-2 fw-medium">AI 正在配置風格搜尋矩陣並定位附近化妝服飾店，請稍候...</p>
                     </div>
                 </div>
 
-                <!-- AI 分析結果展示區 -->
                 <div id="resultSection" class="card p-4 p-md-5 result-box mb-5 shadow">
                     <h3 class="mb-2" style="color: #5c4033; font-weight: bold;">✨ 您的奢華美學全維度報告</h3>
                     <p id="imageStatus" class="text-success small mb-4 fw-medium"></p>
@@ -161,40 +158,32 @@
                         <h5 class="fw-bold text-dark">💄 3. 風格適配臉部乾淨化妝建議</h5>
                         <p id="makeupTip" class="text-secondary fs-6 lh-base"></p>
                     </div>
-                    
-                    <div class="mb-2">
-                        <h5 class="fw-bold text-dark mb-2">🖼 4. AI 3D 模擬試衣預覽狀態</h5>
-                        <p id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2"></p>
+                </div>
+
+                <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm text-center">
+                    <h4 class="section-title text-start">📺 YouTube 直達：即刻觀看最新風格大師課</h4>
+                    <p class="text-muted text-start mb-4">系統已根據您選擇的風格，自動配置精準美學搜尋關鍵字。點擊下方按鈕將直接開啟 YouTube 獲取當季最新穿搭教學：</p>
+                    <div class="p-4 rounded-3 mb-2" style="background-color: #f1f1f1;">
+                        <p class="fw-bold mb-3 text-dark">自動配置搜尋詞：<span id="ytKeywords" class="text-danger">#</span></p>
+                        <a id="ytJumpBtn" href="#" target="_blank" class="btn-youtube-jump shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-play-btn-fill" viewBox="0 0 16 16">
+                                <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
+                            </svg>
+                            直接跳轉至 YouTube 觀看實拍教學
+                        </a>
                     </div>
                 </div>
 
-                <!-- 智慧連動：動態影片教學專區 -->
                 <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
-                    <h4 class="section-title">📺 風格連動：專屬您的市面主流風格大師課</h4>
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <p id="videoTitle1" class="fw-bold mb-2">💡 推薦教學一（依所選風格自動更換）</p>
-                            <div class="video-container">
-                                <iframe id="videoFrame1" src="https://www.youtube.com/embed/_07C378fF3M" title="教學影片一" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <p id="videoTitle2" class="fw-bold mb-2">💡 推薦教學二（依所選風格自動更換）</p>
-                            <div class="video-container">
-                                <iframe id="videoFrame2" src="https://www.youtube.com/embed/u93B_3Bf_S8" title="教學影片二" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 智慧連動：動態 Google 地圖 -->
-                <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
-                    <h4 class="section-title">📍 實體店導航：離您最近的 <span id="targetBrand" class="text-primary">推薦品牌門市</span></h4>
-                    <p class="text-muted small mb-3">AI 根據您推薦的服裝風格，自動在 Google 地圖中搜尋距離您最近的品牌據點：</p>
-                    <div class="rounded-4 overflow-hidden shadow-sm" style="height: 410px;">
+                    <h4 class="section-title">📍 實體店導航：依推薦風格自動搜尋您附近的「化妝與服飾門市」</h4>
+                    <p class="text-muted small mb-3">
+                        地圖已自動鎖定關鍵字：<strong id="mapKeywords" class="text-primary">#</strong>。<br>
+                        系統會根據您目前的地理位置，動態在地圖上標記出最符合您所需风格的附近實體彩妝店、服裝專賣店與百貨專櫃：
+                    </p>
+                    <div class="rounded-4 overflow-hidden shadow-sm" style="height: 420px;">
                         <iframe 
                             id="mapFrame"
-                            src="https://maps.google.com/maps?q=GAP%20門市%20/%20Levi's%20專賣店&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                            src="http://googleusercontent.com/maps.google.com/6" 
                             width="100%" 
                             height="100%" 
                             style="border:0;" 
@@ -209,7 +198,6 @@
         </div>
     </div>
 
-    <!-- 前後端異步 Fetch API 智慧連動控制 -->
     <script>
         document.getElementById('consultantForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -232,24 +220,21 @@
                 const data = await response.json();
                 
                 if(data.status === 'success') {
-                    // 1. 填入文字報告
+                    // 1. 填入分析報告
                     document.getElementById('imageStatus').innerText = data.image_handling;
                     document.getElementById('colorAnalysis').innerText = data.report.color_analysis;
                     document.getElementById('outfitSuggestion').innerText = data.report.outfit_suggestion;
                     document.getElementById('makeupTip').innerText = data.report.makeup_tip;
-                    document.getElementById('tryonPreview').innerText = data.report.virtual_tryon_preview;
                     
-                    // 2. 智慧連動一：動態更新 YouTube 影片網址與標題
-                    document.getElementById('videoFrame1').src = data.report.dynamic_video_1;
-                    document.getElementById('videoTitle1').innerText = "💡 " + data.report.dynamic_video_title_1;
-                    document.getElementById('videoFrame2').src = data.report.dynamic_video_2;
-                    document.getElementById('videoTitle2').innerText = "💡 " + data.report.dynamic_video_title_2;
+                    // 2. 智慧連動一：更新 YouTube 跳轉連結與文字
+                    document.getElementById('ytKeywords').innerText = "「" + data.report.youtube_search_keywords + "」";
+                    document.getElementById('ytJumpBtn').href = data.report.youtube_search_url;
                     
-                    // 3. 智慧連動二：動態更換 Google 地圖搜尋關鍵字與標題
-                    document.getElementById('targetBrand').innerText = data.report.recommended_brand;
+                    // 3. 智慧連動二：更新 Google 地圖附近門市搜尋與文字說明
+                    document.getElementById('mapKeywords').innerText = data.report.map_search_keywords;
                     document.getElementById('mapFrame').src = data.report.google_map_url;
                     
-                    // 顯示結果並滾動
+                    // 展現結果區
                     resultBox.style.display = 'block';
                     resultBox.scrollIntoView({ behavior: 'smooth' });
                 }
