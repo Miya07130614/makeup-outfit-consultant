@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>妝搭顧問館 - 旗艦級 AI 智能美學大數據分析</title>
-    <!-- 引入 Bootstrap 5 與 Google 字體 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
     
@@ -12,37 +11,27 @@
         :root { --main-color: #8c6239; --hover-color: #734d2a; --bg-color: #faf6f0; --text-color: #4a3e3d; }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }
         
-        /* 高級時尚封面 (Cover Hero) */
         .hero-cover {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-            text-align: center;
-            padding: 0 20px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; color: #ffffff; text-align: center; padding: 0 20px;
         }
         .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; }
         .hero-subtitle { font-size: 1.8rem; font-weight: 300; letter-spacing: 4px; margin-bottom: 30px; }
         .btn-discover { border: 2px solid #ffffff; color: #ffffff; background: transparent; padding: 12px 35px; font-size: 1.1rem; border-radius: 30px; font-weight: bold; transition: all 0.3s ease; text-decoration: none; }
         .btn-discover:hover { background-color: #ffffff; color: var(--main-color); transform: translateY(-3px); }
 
-        /* 導覽列與卡片 */
         .navbar-brand { font-weight: bold; color: var(--main-color) !important; font-size: 1.6rem; }
         .card { border: none; border-radius: 24px; box-shadow: 0 12px 40px rgba(140, 98, 57, 0.06); margin-top: -50px; position: relative; z-index: 10; }
         .form-section { padding: 60px 0; }
         .btn-consultant { background-color: var(--main-color); color: white; border: none; font-weight: bold; padding: 18px; border-radius: 12px; transition: all 0.3s; }
         .btn-consultant:hover { background-color: var(--hover-color); color: white; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(140, 98, 57, 0.2); }
         
-        /* 結果展示區與動畫 */
         .result-box { display: none; background-color: #fff; border-left: 8px solid var(--main-color); animation: slideUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
         .section-title { color: #5c4033; font-weight: bold; border-bottom: 2px solid #eaddcf; padding-bottom: 10px; margin-bottom: 25px; }
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
-        /* 系統完善：讀取中動畫 (Spinner) */
         .loading-spinner { display: none; margin: 20px auto; text-align: center; }
         .loading-spinner .spinner-border { color: var(--main-color); width: 3rem; height: 3rem; }
 
@@ -51,14 +40,14 @@
 </head>
 <body>
 
-    <!-- [完善系統] 階段一：雜誌質感奢華封面 -->
+    <!-- 奢華大片感封面 -->
     <div class="hero-cover">
         <h1 class="hero-title">✨ 妝搭顧問館</h1>
         <p class="hero-subtitle">AI SMART BEAUTY & STYLE SPACE</p>
         <a href="#mainContent" class="btn-discover">開啟您的美學基因測算</a>
     </div>
 
-    <!-- 頂部精緻導覽列 -->
+    <!-- 精緻導覽列 -->
     <nav class="navbar navbar-light bg-white shadow-sm py-3" id="mainContent">
         <div class="container">
             <span class="navbar-brand">✨ 妝搭顧問館 <small class="fs-6 text-muted">AI Style Consultant Platform</small></span>
@@ -69,21 +58,18 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 
-                <!-- 核心 AI 顧問分析表單 -->
+                <!-- AI 顧問分析表單 -->
                 <div class="card p-4 p-md-5 bg-white mb-5 shadow">
                     <h2 class="text-center mb-2" style="color: #5c4033; font-weight: 800;">全維度 AI 個人美學測算</h2>
                     <p class="text-muted text-center mb-5">所有項目皆為選填，若未填寫將啟動大數據智慧媒合機制</p>
                     
                     <form id="consultantForm" enctype="multipart/form-data">
-                        
-                        <!-- 1. 照片上傳 -->
                         <div class="mb-4">
                             <label for="user_photo" class="form-label fw-bold fs-5">1. 上傳個人照片 / 身型全身照（選填）</label>
                             <input class="form-control form-control-lg" type="file" id="user_photo" name="user_photo" accept="image/*">
                         </div>
 
                         <div class="row g-4 mb-4">
-                            <!-- 2. 市面所有膚色與四季色彩 -->
                             <div class="col-md-6">
                                 <label for="skin_tone" class="form-label fw-bold">2. 四季個人色彩學 / 膚色分類</label>
                                 <select class="form-select form-select-lg" id="skin_tone" name="skin_tone">
@@ -98,7 +84,6 @@
                                 </select>
                             </div>
                             
-                            <!-- 3. 市面所有主流身型 -->
                             <div class="col-md-6">
                                 <label for="body_type" class="form-label fw-bold">3. 人體骨架與身型線條</label>
                                 <select class="form-select form-select-lg" id="body_type" name="body_type">
@@ -114,7 +99,6 @@
                         </div>
 
                         <div class="row g-4 mb-4">
-                            <!-- 4. 市面所有流行穿搭風格 -->
                             <div class="col-md-6">
                                 <label for="style" class="form-label fw-bold">4. 意向穿搭美學風格</label>
                                 <select class="form-select form-select-lg" id="style" name="style">
@@ -131,7 +115,6 @@
                                 </select>
                             </div>
 
-                            <!-- 5. 跨場域全場合分類 -->
                             <div class="col-md-6">
                                 <label for="occasion" class="form-label fw-bold">5. 穿搭鎖定應用場景</label>
                                 <select class="form-select form-select-lg" id="occasion" name="occasion">
@@ -147,16 +130,14 @@
                             </div>
                         </div>
 
-                        <!-- 送出按鈕 -->
                         <div class="d-grid gap-2 mt-5">
                             <button type="submit" id="submitBtn" class="btn btn-consultant btn-lg fs-5 shadow-sm">核心智慧分析：生成我的大數據妝搭報告</button>
                         </div>
                     </form>
 
-                    <!-- [完善系統] 讀取動畫反饋區 -->
                     <div class="loading-spinner" id="loadingSpinner">
                         <div class="spinner-border" role="status"></div>
-                        <p class="text-muted mt-2 fw-medium">AI 正在抓取市面流行趨勢並進行色彩矩陣算力配置，請稍候...</p>
+                        <p class="text-muted mt-2 fw-medium">AI 正在配置風格矩陣並計算最近實體門市，請稍候...</p>
                     </div>
                 </div>
 
@@ -182,37 +163,38 @@
                     </div>
                     
                     <div class="mb-2">
-                        <h5 class="fw-bold text-dark mb-2">🖼 "4. AI 3D 模擬試衣預覽狀態</h5>
+                        <h5 class="fw-bold text-dark mb-2">🖼 4. AI 3D 模擬試衣預覽狀態</h5>
                         <p id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2"></p>
                     </div>
                 </div>
 
-                <!-- 影片教學專區 -->
+                <!-- 智慧連動：動態影片教學專區 -->
                 <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
-                    <h4 class="section-title">📺 顧問館精選：頂級穿搭與個人色彩影片教學</h4>
+                    <h4 class="section-title">📺 風格連動：專屬您的市面主流風格大師課</h4>
                     <div class="row g-4">
                         <div class="col-md-6">
-                            <p class="fw-bold mb-2">💡 1. 探索你的命定色彩（四季色彩學精講）</p>
+                            <p id="videoTitle1" class="fw-bold mb-2">💡 推薦教學一（依所選風格自動更換）</p>
                             <div class="video-container">
-                                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="教學影片一" allowfullscreen></iframe>
+                                <iframe id="videoFrame1" src="https://www.youtube.com/embed/_07C378fF3M" title="教學影片一" allowfullscreen></iframe>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <p class="fw-bold mb-2">💡 2. 實用大師課：如何根據四大身型選衣服</p>
+                            <p id="videoTitle2" class="fw-bold mb-2">💡 推薦教學二（依所選風格自動更換）</p>
                             <div class="video-container">
-                                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="教學影片二" allowfullscreen></iframe>
+                                <iframe id="videoFrame2" src="https://www.youtube.com/embed/u93B_3Bf_S8" title="教學影片二" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 實體顧問館導航：Google 地圖 -->
+                <!-- 智慧連動：動態 Google 地圖 -->
                 <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
-                    <h4 class="section-title">📍 顧問館線下實體門市導航 (鄰近大雅校區大大停車場)</h4>
-                    <p class="text-muted small mb-3">若需要一對一實體布料測色與面部輪廓分析，歡迎親臨實體概念館：</p>
+                    <h4 class="section-title">📍 實體店導航：離您最近的 <span id="targetBrand" class="text-primary">推薦品牌門市</span></h4>
+                    <p class="text-muted small mb-3">AI 根據您推薦的服裝風格，自動在 Google 地圖中搜尋距離您最近的品牌據點：</p>
                     <div class="rounded-4 overflow-hidden shadow-sm" style="height: 410px;">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m121.5369!2d25.1368!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ade56ffda877%3A0xe6bf4ea6ea4b97fa!2z5Lit6I-v5paH5YyW5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1710000000000!5m2!1szh-TW!2stw" 
+                            id="mapFrame"
+                            src="https://maps.google.com/maps?q=GAP%20門市%20/%20Levi's%20專賣店&t=&z=13&ie=UTF8&iwloc=&output=embed" 
                             width="100%" 
                             height="100%" 
                             style="border:0;" 
@@ -227,19 +209,18 @@
         </div>
     </div>
 
-    <!-- 前後端異步 Fetch API 串接 -->
+    <!-- 前後端異步 Fetch API 智慧連動控制 -->
     <script>
         document.getElementById('consultantForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // [完善系統] 防重複點擊與防護機制
             const submitBtn = document.getElementById('submitBtn');
             const spinner = document.getElementById('loadingSpinner');
             const resultBox = document.getElementById('resultSection');
             
             submitBtn.disabled = true;
             spinner.style.display = 'block';
-            resultBox.style.display = 'none'; // 重新計算時先隱藏舊報告
+            resultBox.style.display = 'none';
             
             const formData = new FormData(this);
             
@@ -251,13 +232,24 @@
                 const data = await response.json();
                 
                 if(data.status === 'success') {
+                    // 1. 填入文字報告
                     document.getElementById('imageStatus').innerText = data.image_handling;
                     document.getElementById('colorAnalysis').innerText = data.report.color_analysis;
                     document.getElementById('outfitSuggestion').innerText = data.report.outfit_suggestion;
                     document.getElementById('makeupTip').innerText = data.report.makeup_tip;
                     document.getElementById('tryonPreview').innerText = data.report.virtual_tryon_preview;
                     
-                    // 顯示新報告並流暢滾動
+                    // 2. 智慧連動一：動態更新 YouTube 影片網址與標題
+                    document.getElementById('videoFrame1').src = data.report.dynamic_video_1;
+                    document.getElementById('videoTitle1').innerText = "💡 " + data.report.dynamic_video_title_1;
+                    document.getElementById('videoFrame2').src = data.report.dynamic_video_2;
+                    document.getElementById('videoTitle2').innerText = "💡 " + data.report.dynamic_video_title_2;
+                    
+                    // 3. 智慧連動二：動態更換 Google 地圖搜尋關鍵字與標題
+                    document.getElementById('targetBrand').innerText = data.report.recommended_brand;
+                    document.getElementById('mapFrame').src = data.report.google_map_url;
+                    
+                    // 顯示結果並滾動
                     resultBox.style.display = 'block';
                     resultBox.scrollIntoView({ behavior: 'smooth' });
                 }
@@ -265,7 +257,6 @@
                 alert('大數據算力連線異常，請確認本機伺服器後台狀態！');
                 console.error(error);
             } finally {
-                // [完善系統] 計算結束，恢復按鈕可用狀態
                 submitBtn.disabled = false;
                 spinner.style.display = 'none';
             }
