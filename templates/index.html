@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* 奢華流金封面與開啟測算動畫 */
+        /* 奢華流金封面 */
         .hero-cover {
             height: 100vh;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
@@ -147,66 +147,59 @@
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
         }
 
-        /* 下載 App 區塊奢華樣式與無限流光動畫 */
-        .app-download-box {
-            background: linear-gradient(135deg, #111111 0%, #222222 100%);
-            border: 1px solid var(--primary-gold);
-            padding: 30px;
+        /* 精簡版 App 下載格樣式 */
+        .app-grid-box {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background-color: #111111;
+            padding: 25px;
+            transition: all 0.3s;
+            display: block;
+            text-decoration: none;
             text-align: center;
-            color: #ffffff;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
         }
-        .app-download-box::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(rgba(212,175,55,0), rgba(212,175,55,0.15), rgba(212,175,55,0));
-            transform: rotate(45deg);
-            animation: lightGlow 3s linear infinite;
+        .app-grid-box:hover {
+            border-color: var(--primary-gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            transform: translateY(-2px);
         }
-        .btn-app-store {
-            background-color: transparent;
-            color: #ffffff;
-            border: 1px solid #ffffff;
-            padding: 12px 25px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 2;
-        }
-        .btn-app-store:hover {
-            background-color: #ffffff;
-            color: var(--luxury-black);
-            box-shadow: 0 0 15px rgba(255,255,255,0.5);
-        }
-        .btn-google-play {
-            background-color: transparent;
-            color: var(--primary-gold);
+
+        /* 👑 AI 虛擬魔鏡試衣間格子樣式 */
+        .virtual-mirror-box {
+            background: #161616;
             border: 1px solid var(--primary-gold);
-            padding: 12px 25px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
             position: relative;
-            z-index: 2;
+            width: 100%;
+            max-width: 380px;
+            height: 480px;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
-        .btn-google-play:hover {
-            background-color: var(--primary-gold);
-            color: var(--luxury-black);
-            box-shadow: 0 0 15px rgba(212,175,55,0.5);
+        .mirror-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.95) contrast(1.05);
+            transition: all 0.5s ease;
+        }
+        /* 智能雷射掃描線特效 */
+        .mirror-scanner {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(to right, transparent, var(--primary-gold), transparent);
+            box-shadow: 0 0 15px var(--primary-gold);
+            animation: scanMotion 3s ease-in-out infinite;
+            z-index: 3;
+        }
+        /* 虛擬疊加遮罩 */
+        .mirror-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 20px;
+            color: #fff;
+            z-index: 4;
+            text-align: center;
         }
 
         /* 測算生成阻尼感動畫 */
@@ -268,7 +261,7 @@
 
         @keyframes textFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes lightGlow { 0% { transform: translate(-50%, -50%) rotate(45deg); } 100% { transform: translate(50%, 50%) rotate(45deg); } }
+        @keyframes scanMotion { 0% { top: 0%; } 50% { top: 100%; } 100% { top: 0%; } }
         @keyframes slideUpCube {
             from { opacity: 0; transform: translateY(60px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
@@ -296,17 +289,24 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 
-                <!-- 👑 行動 App 下載專區（無限流光微動畫） -->
-                <div class="app-download-box shadow-lg">
-                    <h5 class="fw-bold mb-2" style="letter-spacing: 2px; color: var(--primary-gold);">攜帶您的專屬美學基因</h5>
-                    <p class="small text-white-50 mb-4">下載 Maison AR 旗艦應用程式，解鎖全息 3D 鏡前實時試衣與頂級沙龍一鍵預約</p>
-                    <div class="d-flex flex-wrap justify-content-center gap-3">
-                        <a href="https://www.apple.com/app-store/" target="_blank" class="btn-app-store">
-                            🍏 iOS App Store 下載
-                        </a>
-                        <a href="https://play.google.com/store" target="_blank" class="btn-google-play">
-                            🤖 Android Google Play 下載
-                        </a>
+                <!-- 👑 行動 App 下載區：精簡版雙規格大格子 -->
+                <div class="mb-5">
+                    <h5 class="fw-bold mb-3 text-center" style="letter-spacing: 2px; color: var(--dark-gold);">攜帶您的專屬美學基因</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <a href="https://www.apple.com/app-store/" target="_blank" class="app-grid-box">
+                                <div class="fs-4 mb-1">🍏</div>
+                                <div class="fw-bold text-white" style="letter-spacing: 1px;">iOS 版本下載</div>
+                                <div class="text-white-50 small mt-1">適用於 iPhone / iPad 鏡前實時試衣</div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="https://play.google.com/store" target="_blank" class="app-grid-box">
+                                <div class="fs-4 mb-1">🤖</div>
+                                <div class="fw-bold" style="color: var(--primary-gold); letter-spacing: 1px;">Android 版本下載</div>
+                                <div class="text-white-50 small mt-1">適用於安卓主流旗艦機型沙龍預約</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -394,22 +394,37 @@
                     </div>
                 </div>
 
-                <!-- 深度高階分析報告展示區（自帶滑入阻尼感微動畫） -->
+                <!-- 深度高階分析報告與 💎 AI 虛擬魔鏡試衣間 -->
                 <div id="resultSection" class="card p-4 p-md-5 result-box mb-5">
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 border-bottom pb-3" style="border-color: rgba(212,175,55,0.3) !important;">
                         <div>
                             <h4 class="mb-1 fw-bold text-uppercase" style="letter-spacing: 1px; color: var(--dark-gold);">✨ Votre Rapport d'Esthétique</h4>
                             <p id="imageStatus" class="text-success small mb-0 fw-medium"></p>
                         </div>
-                        <div class="mt-3 mt-md-0">
-                            <span class="d-block text-muted small mb-1 fw-bold text-md-end">全息投影狀態：</span>
-                            <div id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2" style="border: 1px solid var(--primary-gold); font-weight: 600; color: var(--primary-gold); letter-spacing: 1px;"></div>
+                        <div class="mt-3 mt-md-0 text-md-end">
+                            <span class="badge bg-dark text-wrap fs-6 px-3 py-2" id="tryonPreview" style="border: 1px solid var(--primary-gold); font-weight: 600; color: var(--primary-gold); letter-spacing: 1px;"></span>
                         </div>
                     </div>
-                    
-                    <div class="report-section">
-                        <div class="report-meta-title">🎨 1. 四季原生色彩色彩矩陣分析</div>
-                        <p id="colorAnalysis" class="text-secondary small lh-lg" style="text-align: justify;"></p>
+
+                    <!-- 👑 新增：AI 虛擬試衣間實體展示格子 -->
+                    <div class="row g-4 mb-4 align-items-center">
+                        <div class="col-md-5 text-center">
+                            <div class="virtual-mirror-box">
+                                <div class="mirror-scanner"></div>
+                                <!-- 預設示意圖，生成後透過 JS 換成時尚對應風格服飾圖 -->
+                                <img id="mirrorImage" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020&auto=format&fit=crop" class="mirror-bg-img" alt="AI 試衣鏡像">
+                                <div class="mirror-overlay">
+                                    <div class="small fw-bold text-uppercase" style="color: var(--primary-gold); letter-spacing: 2px;">Maison AI Mirror</div>
+                                    <div class="small text-white-50 mt-1" id="mirrorStyleTag">全息渲染穿搭中...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="report-section h-100 mb-0">
+                                <div class="report-meta-title">🎨 1. 四季原生色彩色彩矩陣分析</div>
+                                <p id="colorAnalysis" class="text-secondary small lh-lg mb-0" style="text-align: justify;"></p>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="report-section">
@@ -459,7 +474,7 @@
                     </div>
                 </div>
 
-                <!-- 🗺️ 地理定位導航：完全修復官方標準核心，動態顯示周圍所有實體店家 -->
+                <!-- 地理定位導航 -->
                 <div class="card p-4 p-md-5 shadow-sm">
                     <h4 class="section-title">📍 地理定位導航 | Boutique Finder</h4>
                     <p class="text-muted small mb-3">系統已動態調用 Google Maps 地理商圈檢索模組，在下方網頁內直接為您渲染顯示附近的實體門市與美妝專櫃：</p>
@@ -467,7 +482,6 @@
                         地圖檢索關鍵字：<strong id="mapKeywords" class="text-primary">#</strong>
                     </div>
                     <div class="overflow-hidden" style="height: 450px; border: 1px solid rgba(212, 175, 55, 0.3);">
-                        <!-- 修正：使用 Google 官方正式 Search 模式內嵌路徑，確保完美讀取附近所有據點 -->
                         <iframe id="mapFrame" src="https://maps.google.com/maps?q=%E6%9C%8D%E9%A3%BE%E5%BA%97%20%E5%8C%96%E5%A6%9D%E5%93%8D%E5%BA%97%20%E7%99%BE%E8%B2%A8%E5%B0%88%E6%AB%90&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
@@ -509,6 +523,8 @@
             const spinner = document.getElementById('loadingSpinner');
             const resultBox = document.getElementById('resultSection');
             const tryonPreview = document.getElementById('tryonPreview');
+            const mirrorImage = document.getElementById('mirrorImage');
+            const mirrorStyleTag = document.getElementById('mirrorStyleTag');
             
             submitBtn.disabled = true;
             spinner.style.display = 'block';
@@ -530,20 +546,39 @@
                     document.getElementById('colorAnalysis').innerHTML = 
                         `<strong>【色彩學大師鑑定報告】</strong><br>` +
                         `${data.report.color_analysis}<br>` +
-                        `<span class="text-muted">專業延伸：此季型色盤在光學矩陣下具有高飽和反射率，建議在日常搭配中作為主色（佔比 60%），並搭配低明度的底色進行層次襯托。避免選用高飽和熒光色，以免破壞原生肌膚的淨透質感。</span>`;
+                        `<span class="text-muted small d-block mt-1">專業延伸：此季型色盤在光學矩陣下具有高飽和反射率，建議在日常搭配中作為主色（佔比 60%）。</span>`;
                     
                     document.getElementById('outfitSuggestion').innerHTML = 
                         `<strong>【人體幾何結構與服飾結構提案】</strong><br>` +
                         `${data.report.outfit_suggestion}<br>` +
-                        `<span class="text-muted">面料學精要：根據您的體態特徵，應優先挑選挺括、具備高磅數支撐力的織物（如重磅精梳棉、密織羊毛或斜紋單寧）。透過衣物本身的物理結構去修飾並重塑身體的微觀線條，進而達到極佳的縱向延伸視覺。</span>`;
+                        `<span class="text-muted small d-block mt-1">面料學精要：根據您的體態特徵，應優先挑選挺括、具備高磅數支撐力的織物修飾身材。</span>`;
                     
                     document.getElementById('makeupTip').innerHTML = 
                         `<strong>【高級美學風格妝容定調方針】</strong><br>` +
                         `${data.report.makeup_tip}<br>` +
-                        `<span class="text-muted">彩妝實作細節：妝容的核心重點在於「高低明度對比與面部折疊度的重塑」。底妝應著重強調面中區塊的飽滿度與微光感；眼妝部分則建議運用低飽和度的階梯式暈染法深邃眼窩，唇部則需呼應穿搭風格選擇啞霧或高光澤水光質地。</span>`;
+                        `<span class="text-muted small d-block mt-1">彩妝實作細節：妝容的核心重點在於「高低明度對比與面部折疊度的重塑」。</span>`;
                     
-                    // 核心渲染：全息試衣投影狀態外顯
+                    // 核心渲染：全息試衣投影狀態文字
                     tryonPreview.innerText = data.report.virtual_tryon_preview;
+                    
+                    // 👑 智能換圖邏輯：根據使用者選取的風格，更換試衣鏡格子內對應的時尚穿搭圖片
+                    const selectedStyle = document.getElementById('style').value;
+                    mirrorStyleTag.innerText = selectedStyle ? "已生成：" + selectedStyle : "已生成：預設美式休閒";
+                    
+                    if (selectedStyle.includes("極簡") || selectedStyle.includes("Clean")) {
+                        mirrorImage.src = "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=1000";
+                    } else if (selectedStyle.includes("老錢") || selectedStyle.includes("Money")) {
+                        mirrorImage.src = "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1000";
+                    } else if (selectedStyle.includes("千金") || selectedStyle.includes("約會")) {
+                        mirrorImage.src = "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000";
+                    } else if (selectedStyle.includes("Y2K") || selectedStyle.includes("辣妹")) {
+                        mirrorImage.src = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1000";
+                    } else if (selectedStyle.includes("機能") || selectedStyle.includes("Gorpcore")) {
+                        mirrorImage.src = "https://images.unsplash.com/photo-1548883354-7622d03aca27?q=80&w=1000";
+                    } else {
+                        // 預設美式休閒 / 其他
+                        mirrorImage.src = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020";
+                    }
                     
                     // 動態更新各大導購、影片與條件文字
                     document.getElementById('ytKeywords').innerText = "「" + data.report.youtube_search_keywords + "」";
@@ -555,11 +590,9 @@
                     document.getElementById('shopMakeupKeywords').innerText = data.report.shop_makeup_keywords;
                     document.getElementById('shopMakeupBtn').href = data.report.shopee_makeup_url;
                     
-                    // 🚀 核心優化：地圖改為動態嵌入 Google 地圖 Search 語法，全自動搜索當前位置附近所有店家
+                    // 地圖動態嵌入
                     const combinedMapQuery = "附近 " + data.report.map_search_keywords;
                     document.getElementById('mapKeywords').innerText = combinedMapQuery;
-                    
-                    // 更新 Iframe 的 src，強行命令 Google 地圖在網頁內直接列出週邊所有目標店家
                     document.getElementById('mapFrame').src = "https://maps.google.com/maps?q=" + encodeURIComponent(combinedMapQuery) + "&t=&z=14&ie=UTF8&iwloc=&output=embed";
                     
                     // 流暢滑入結果區
