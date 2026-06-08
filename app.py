@@ -65,32 +65,77 @@ def generate_search_linked_report(skin, style, body, occasion):
     }
     recommended_silhouette = body_db.get(body, "注重衣服面料的挺度與俐落的垂直剪裁。")
 
-    # 風格關鍵字矩陣
+    # 智慧矩陣：新增【電商穿搭、彩妝】導購搜尋關鍵字
     style_keywords_matrix = {
-        "日常美式休閒": {"yt_query": "美式休閒 穿搭教學 技巧", "map_query": "服飾店 GAP Levi's"},
-        "Clean Fit 極簡風": {"yt_query": "Clean Fit 極簡風 穿搭必備", "map_query": "極簡服飾 COS UNIQLO"},
-        "Old Money 老錢風": {"yt_query": "老錢風 靜奢美學 高級感穿搭", "map_query": "精品服飾 Ralph Lauren Massimo Dutti"},
-        "千金溫柔約會風": {"yt_query": "約會穿搭 小香風 溫柔氣質", "map_query": "女裝專賣店 百貨專櫃 Zara snidel"},
-        "Cottagecore 法式浪漫": {"yt_query": "法式復古浪漫 穿搭 碎花裙", "map_query": "法式女裝 服飾店 浪漫裙裝"},
-        "日系 City Boy 寬鬆風": {"yt_query": "City Boy 寬鬆工裝 穿搭指南", "map_query": "潮流服飾 BEAMS niko and"},
-        "Y2K 辣妹街頭風": {"yt_query": "Y2K 千禧辣妹 穿搭個性單品", "map_query": "個性服飾 辣妹服飾 Bershka"},
-        "多巴胺高飽和色彩風": {"yt_query": "多巴胺 撞色 色彩學穿搭", "map_query": "流行女裝 H&M 服飾店"},
-        "Gorpcore 戶外機能風": {"yt_query": "Gorpcore 戶外機能 衝鋒衣穿搭", "map_query": "戶外用品 The North Face 始祖鳥"}
+        "日常美式休閒": {
+            "yt_query": "美式休閒 穿搭教學 技巧", 
+            "map_query": "服飾店 GAP Levi's",
+            "shop_cloth": "美式休閒 寬鬆重磅 大學T 丹寧牛仔褲",
+            "shop_makeup": "自然裸妝感 霧面唇膏 大地色眼影盤"
+        },
+        "Clean Fit 極簡風": {
+            "yt_query": "Clean Fit 極簡風 穿搭必備", 
+            "map_query": "極簡服飾 COS UNIQLO",
+            "shop_cloth": "Clean Fit 極簡版型 素色襯衫 俐落西裝褲",
+            "shop_makeup": "微光澤粉底液 乾淨偽素顏 晶透護唇膏"
+        },
+        "Old Money 老錢風": {
+            "yt_query": "老錢風 靜奢美學 高級感穿搭", 
+            "map_query": "精品服飾 Ralph Lauren Massimo Dutti",
+            "shop_cloth": "老錢風 針織老爺衫 羊毛小香風 靜奢單品",
+            "shop_makeup": "高級啞光粉底 氣質低調裸色口紅 精致修容"
+        },
+        "千金溫柔約會風": {
+            "yt_query": "約會穿搭 小香風 溫柔氣質", 
+            "map_query": "女裝專賣店 百貨專櫃 Zara snidel",
+            "shop_cloth": "溫柔氣質裙裝 針織小外套 復古瑪莉珍鞋",
+            "shop_makeup": "粉嫩蜜桃色腮紅 淚袋臥蠶筆 玫瑰色水光唇釉"
+        },
+        "Cottagecore 法式浪漫": {
+            "yt_query": "法式復古浪漫 穿搭 碎花裙", 
+            "map_query": "法式女裝 服飾店 浪漫裙裝",
+            "shop_cloth": "法式復古碎花長裙 V領泡泡袖 慵懶風針織",
+            "shop_makeup": "復古法式紅唇 蓬鬆微捲髮造型 暖色調腮紅"
+        },
+        "日系 City Boy 寬鬆風": {
+            "yt_query": "City Boy 寬鬆工裝 穿搭指南", 
+            "map_query": "潮流服飾 BEAMS niko and",
+            "shop_cloth": "Cityboy寬鬆襯衫 戶外工裝褲 重磅寬版短T",
+            "shop_makeup": "清爽控油潔顏 零粉感防曬 男士自然修容"
+        },
+        "Y2K 辣妹街頭風": {
+            "yt_query": "Y2K 千禧辣妹 穿搭個性單品", 
+            "map_query": "個性服飾 辣妹服飾 Bershka",
+            "shop_cloth": "Y2K短版高腰上衣 金屬感工裝裙 復古厚底鞋",
+            "shop_makeup": "高調貓眼眼線 芭比粉水光唇蜜 閃耀打亮打底"
+        },
+        "多巴胺高飽和色彩風": {
+            "yt_query": "多巴胺 撞色 色彩學穿搭", 
+            "map_query": "流行女裝 H&M 服飾店",
+            "shop_cloth": "多巴胺高飽和度上衣 繽紛撞色配件 亮色系單品",
+            "shop_makeup": "彩色眼線筆 繽紛指甲油 糖果色系明亮妝容"
+        },
+        "Gorpcore 戶外機能風": {
+            "yt_query": "Gorpcore 戶外機能 衝鋒衣穿搭", 
+            "map_query": "戶外用品 The North Face 始祖鳥",
+            "shop_cloth": "Gorpcore防水衝鋒衣 戰術機能三防褲 戶外越野鞋",
+            "shop_makeup": "高效防水防汗防曬 運動長效定妝噴霧"
+        }
     }
 
     keywords = style_keywords_matrix.get(style, style_keywords_matrix["日常美式休閒"])
 
-    # 動態組合化妝與服裝店關鍵字
+    # 1. 導覽與地圖
     combined_map_query = f"{keywords['map_query']} 化妝品店 彩妝專櫃"
-    encoded_map_query = quote(combined_map_query)
-    # 使用標準 Google Maps Embed API 格式，會自動根據使用者當前瀏覽器定位尋找附近
-    google_map_url = f"https://maps.google.com/maps?q={encoded_map_query}&t=&z=14&ie=UTF8&iwloc=&output=embed"
+    google_map_url = f"https://maps.google.com/maps?q={quote(combined_map_query)}&t=&z=14&ie=UTF8&iwloc=&output=embed"
 
-    # YouTube 跳轉搜尋 URL
-    encoded_yt_query = quote(keywords['yt_query'])
-    youtube_search_url = f"https://www.youtube.com/results?search_query={encoded_yt_query}"
+    # 2. YouTube
+    youtube_search_url = f"https://www.youtube.com/results?search_query={quote(keywords['yt_query'])}"
 
-    # 💡 關鍵修正：確實回傳所有欄位，包含智慧穿搭預覽與地圖連動
+    # 3. 核心：電商導購連結生成 (以台灣最大流量電商蝦皮購物為例，可自由替換其他平台)
+    shopee_cloth_url = f"https://shopee.tw/search?keyword={quote(keywords['shop_cloth'])}"
+    shopee_makeup_url = f"https://shopee.tw/search?keyword={quote(keywords['shop_makeup'])}"
+
     return {
         "color_analysis": f"【色彩大師診斷】配合您的【{skin}】，經色彩矩陣運算，最能襯托氣色的黃金色盤為：{recommended_colors}。",
         "outfit_suggestion": f"【服飾結構提案】針對您的【{body}】，在參與【{occasion}】時，建議採取【{style}】。實作指南：{recommended_silhouette}",
@@ -100,7 +145,13 @@ def generate_search_linked_report(skin, style, body, occasion):
         "youtube_search_url": youtube_search_url,
         "youtube_search_keywords": keywords['yt_query'],
         "google_map_url": google_map_url,
-        "map_search_keywords": combined_map_query
+        "map_search_keywords": combined_map_query,
+        
+        # 導購回傳數據
+        "shop_cloth_keywords": keywords['shop_cloth'],
+        "shop_makeup_keywords": keywords['shop_makeup'],
+        "shopee_cloth_url": shopee_cloth_url,
+        "shopee_makeup_url": shopee_makeup_url
     }
 
 if __name__ == '__main__':
