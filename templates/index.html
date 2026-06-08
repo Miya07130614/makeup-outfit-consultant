@@ -3,84 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>妝搭顧問館 - 旗艦級 AI 智能美學大數據分析</title>
+    <title>妝搭顧問館 | Maison de L'Esthétique AI</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        :root { --main-color: #8c6239; --hover-color: #734d2a; --bg-color: #faf6f0; --text-color: #4a3e3d; }
-        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }
-        
+        :root {
+            --primary-gold: #D4AF37;
+            --dark-gold: #AA7C11;
+            --luxury-black: #111111;
+            --soft-white: #FDFBF7;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            background-color: var(--soft-white);
+            color: var(--luxury-black);
+            font-family: 'Noto Serif TC', serif;
+            letter-spacing: 0.5px;
+            overflow-x: hidden;
+        }
+
+        /* 奢華流金封面 */
         .hero-cover {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; color: #ffffff; text-align: center; padding: 0 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
         }
-        .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; }
-        .hero-subtitle { font-size: 1.8rem; font-weight: 300; letter-spacing: 4px; margin-bottom: 30px; }
-        .btn-discover { border: 2px solid #ffffff; color: #ffffff; background: transparent; padding: 12px 35px; font-size: 1.1rem; border-radius: 30px; font-weight: bold; transition: all 0.3s ease; text-decoration: none; }
-        .btn-discover:hover { background-color: #ffffff; color: var(--main-color); transform: translateY(-3px); }
 
-        .navbar-brand { font-weight: bold; color: var(--main-color) !important; font-size: 1.6rem; }
-        .card { border: none; border-radius: 24px; box-shadow: 0 12px 40px rgba(140, 98, 57, 0.06); margin-top: -50px; position: relative; z-index: 10; }
-        .form-section { padding: 60px 0; }
-        .btn-consultant { background-color: var(--main-color); color: white; border: none; font-weight: bold; padding: 18px; border-radius: 12px; transition: all 0.3s; }
-        .btn-consultant:hover { background-color: var(--hover-color); color: white; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(140, 98, 57, 0.2); }
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 6px;
+            margin-bottom: 15px;
+            color: var(--primary-gold);
+            animation: textFadeIn 1.5s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .btn-discover {
+            border: 1px solid var(--primary-gold);
+            color: #ffffff;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 15px 40px;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            border-radius: 0px;
+            font-weight: 600;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-discover:hover {
+            background-color: var(--primary-gold);
+            color: var(--luxury-black);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* 導覽列 */
+        .navbar {
+            background-color: rgba(17, 17, 17, 0.95) !important;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--primary-gold) !important;
+            letter-spacing: 2px;
+        }
+
+        /* 專業卡片 */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 0px; /* 專業高奢風通常走俐落方角 */
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.04);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.12);
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            color: var(--luxury-black);
+            font-weight: 700;
+            border-bottom: 1px solid var(--primary-gold);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        /* 輸入元件高奢美化 */
+        .form-control, .form-select {
+            border: 1px solid #dddddd;
+            border-radius: 0px;
+            background-color: #fff;
+            color: var(--luxury-black);
+            transition: all 0.3s ease;
+            padding: 12px;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
+            background-color: #fff;
+        }
+
+        .btn-consultant {
+            background-color: var(--luxury-black);
+            color: var(--primary-gold);
+            border: 1px solid var(--primary-gold);
+            font-weight: 600;
+            letter-spacing: 2px;
+            padding: 18px;
+            border-radius: 0px;
+            transition: all 0.4s;
+            text-transform: uppercase;
+        }
+        .btn-consultant:hover {
+            background-color: var(--primary-gold);
+            color: var(--luxury-black);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* 結果展示動畫 */
+        .result-box {
+            display: none;
+            border-top: 4px solid var(--primary-gold);
+            animation: slideUpCube 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        /* YouTube 與導購整合按鈕 */
+        .btn-youtube-jump { background-color: #cc181e; color: white; border-radius: 0px; padding: 15px 30px; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; font-weight: bold; }
+        .btn-youtube-jump:hover { background-color: #9f0f14; color: white; box-shadow: 0 5px 15px rgba(204, 24, 30, 0.3); }
+
+        .btn-shopping-cloth { background-color: #ee4d2d; color: white; font-weight: bold; border-radius: 0px; padding: 15px 20px; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; width: 100%; justify-content: center; }
+        .btn-shopping-cloth:hover { background-color: #c83c20; color: white; box-shadow: 0 5px 15px rgba(238, 77, 45, 0.3); }
         
-        .result-box { display: none; background-color: #fff; border-left: 8px solid var(--main-color); animation: slideUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-        .section-title { color: #5c4033; font-weight: bold; border-bottom: 2px solid #eaddcf; padding-bottom: 10px; margin-bottom: 25px; }
-        
-        .btn-youtube-jump { background-color: #ff0000; color: white; font-weight: bold; border-radius: 12px; padding: 15px 25px; font-size: 1.1rem; transition: all 0.3s; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
-        .btn-youtube-jump:hover { background-color: #cc0000; color: white; transform: scale(1.02); }
+        .btn-shopping-makeup { background-color: #008080; color: white; font-weight: bold; border-radius: 0px; padding: 15px 20px; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; width: 100%; justify-content: center; }
+        .btn-shopping-makeup:hover { background-color: #005a5a; color: white; box-shadow: 0 5px 15px rgba(0, 128, 128, 0.3); }
 
-        /* 導購專用按鈕樣式 */
-        .btn-shopping-cloth { background-color: #ee4d2d; color: white; font-weight: bold; border-radius: 12px; padding: 15px 20px; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; width: 100%; justify-content: center; }
-        .btn-shopping-cloth:hover { background-color: #d13b1f; color: white; transform: translateY(-2px); }
-        .btn-shopping-makeup { background-color: #26a99a; color: white; font-weight: bold; border-radius: 12px; padding: 15px 20px; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; width: 100%; justify-content: center; }
-        .btn-shopping-makeup:hover { background-color: #1e8e81; color: white; transform: translateY(-2px); }
+        /* 全新雙環流金 Spinner 動畫 */
+        .loading-spinner { display: none; margin: 30px auto; text-align: center; }
+        .custom-spinner {
+            width: 4rem; height: 4rem;
+            border: 3px solid rgba(212, 175, 55, 0.2);
+            border-top: 3px solid var(--primary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
 
-        .loading-spinner { display: none; margin: 20px auto; text-align: center; }
-        .loading-spinner .spinner-border { color: var(--main-color); width: 3rem; height: 3rem; }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        /* 動態 Keyframes 庫 */
+        @keyframes textFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes slideUpCube {
+            from { opacity: 0; transform: translateY(60px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 奢華封面 -->
     <div class="hero-cover">
-        <h1 class="hero-title">✨ 妝搭顧問館</h1>
-        <p class="hero-subtitle">AI SMART BEAUTY & STYLE SPACE</p>
-        <a href="#mainContent" class="btn-discover">開啟您的美學基因測算</a>
+        <h1 class="hero-title">MAISON DE L'ESTHÉTIQUE</h1>
+        <p class="hero-subtitle">妝搭顧問館 │ AI 智能美學基因測算</p>
+        <a href="#mainContent" class="btn-discover">開啟專屬高端測算</a>
     </div>
 
-    <!-- 精緻導覽列 -->
-    <nav class="navbar navbar-light bg-white shadow-sm py-3" id="mainContent">
+    <nav class="navbar navbar-dark py-3 sticky-top" id="mainContent">
         <div class="container">
-            <span class="navbar-brand">✨ 妝搭顧問館 <small class="fs-6 text-muted">AI Style Consultant Platform</small></span>
+            <span class="navbar-brand">✨ MAISON DE L'ESTHÉTIQUE</span>
+            <span class="text-white-50 small d-none d-md-inline">旗艦級穿搭與彩妝高階管理系統</span>
         </div>
     </nav>
 
-    <div class="container form-section mb-5">
+    <div class="container py-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 
-                <!-- AI 表單區 -->
-                <div class="card p-4 p-md-5 bg-white mb-5 shadow">
-                    <h2 class="text-center mb-2" style="color: #5c4033; font-weight: 800;">全維度 AI 個人美學測算</h2>
-                    <p class="text-muted text-center mb-5">所有項目皆為選填，若未填寫將啟動大數據智慧媒合機制</p>
+                <div class="card p-4 p-md-5 mb-5 shadow-sm">
+                    <h3 class="text-center mb-2 fw-bold" style="letter-spacing: 2px;">全維度美學基因解碼</h3>
+                    <p class="text-muted text-center small mb-5" style="letter-spacing: 1px;">所有參數均支援大數據預設模組，一鍵即可觸發高階風格媒合</p>
                     
                     <form id="consultantForm" enctype="multipart/form-data">
                         <div class="mb-4">
-                            <label for="user_photo" class="form-label fw-bold fs-5">1. 上傳個人照片 / 身型全身照（選填）</label>
+                            <label for="user_photo" class="form-label fw-semibold">1. 上傳個人全息肖像 / 全身比例照 (選填)</label>
                             <input class="form-control form-control-lg" type="file" id="user_photo" name="user_photo" accept="image/*">
                         </div>
 
                         <div class="row g-4 mb-4">
                             <div class="col-md-6">
-                                <label for="skin_tone" class="form-label fw-bold">2. 四季個人色彩學 / 膚色分類</label>
-                                <select class="form-select form-select-lg" id="skin_tone" name="skin_tone">
-                                    <option value="">請選擇膚色調（預設自然中性）</option>
+                                <label for="skin_tone" class="form-label fw-semibold">2. 四季個人原生色彩學</label>
+                                <select class="form-select" id="skin_tone" name="skin_tone">
+                                    <option value="">智慧媒合（預設自然中性）</option>
                                     <option value="春季型 (暖亮膚色)">春季型 (暖亮膚色 - 蜜桃黃調)</option>
                                     <option value="秋季型 (暖暗膚色)">秋季型 (暖暗膚色 - 豐饒大地調)</option>
                                     <option value="夏季型 (冷亮膚色)">夏季型 (冷亮膚色 - 柔和粉藍調)</option>
@@ -92,9 +229,9 @@
                             </div>
                             
                             <div class="col-md-6">
-                                <label for="body_type" class="form-label fw-bold">3. 人體骨架與身型線條</label>
-                                <select class="form-select form-select-lg" id="body_type" name="body_type">
-                                    <option value="">請選擇身型結構（預設勻稱體態）</option>
+                                <label for="body_type" class="form-label fw-semibold">3. 骨架幾何結構與體態</label>
+                                <select class="form-select" id="body_type" name="body_type">
+                                    <option value="">智慧媒合（預設勻稱體態）</option>
                                     <option value="標準勻稱 / 肌肉線條平衡體態">標準勻稱 / 肌肉線條平衡體態</option>
                                     <option value="梨形身型 (胯寬、大腿豐滿)">梨形身型 (胯寬、大腿豐滿、上身纖細)</option>
                                     <option value="蘋果身型 (腰腹較圓潤)">蘋果身型 (腰腹圓潤、四肢相對纖細)</option>
@@ -107,11 +244,11 @@
 
                         <div class="row g-4 mb-4">
                             <div class="col-md-6">
-                                <label for="style" class="form-label fw-bold">4. 意向穿搭美學風格</label>
-                                <select class="form-select form-select-lg" id="style" name="style">
-                                    <option value="">請選擇目標風格（預設美式休閒）</option>
+                                <label for="style" class="form-label fw-semibold">4. 意向穿搭美學矩陣</label>
+                                <select class="form-select" id="style" name="style">
+                                    <option value="">智慧媒合（預設美式休閒）</option>
                                     <option value="日常美式休閒">日常美式休閒 (舒適丹寧/T-Shirt)</option>
-                                    <option value="Clean Fit 極簡風">Clean Fit 極簡版型風 (俐落、低調高質感)</option>
+                                    <option value="Clean Fit 極簡風">Clean Fit 極簡風 (俐落、低調高質感)</option>
                                     <option value="Old Money 老錢風">Old Money 老錢風 (低調奢華、靜奢美學)</option>
                                     <option value="千金溫柔約會風">千金柔美約會風 (小香風、溫柔裙裝)</option>
                                     <option value="Cottagecore 法式浪漫">Cottagecore 法式復古浪漫 (碎花、方領、慵懶)</option>
@@ -123,9 +260,9 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="occasion" class="form-label fw-bold">5. 穿搭鎖定應用場景</label>
-                                <select class="form-select form-select-lg" id="occasion" name="occasion">
-                                    <option value="">請選擇應用場合（預設日常街頭）</option>
+                                <label for="occasion" class="form-label fw-semibold">5. 穿搭鎖定場景應用</label>
+                                <select class="form-select" id="occasion" name="occasion">
+                                    <option value="">智慧媒合（預設日常街頭）</option>
                                     <option value="日常街頭外出">日常街頭外出 / 假期漫步</option>
                                     <option value="課堂學習與校園生活">課堂上學報告 / 實習校園生活</option>
                                     <option value="商務正式面試/實習簡報">商務正式面試 / 實習高階簡報</option>
@@ -138,112 +275,82 @@
                         </div>
 
                         <div class="d-grid gap-2 mt-5">
-                            <button type="submit" id="submitBtn" class="btn btn-consultant btn-lg fs-5 shadow-sm">核心智慧分析：生成我的大數據妝搭報告</button>
+                            <button type="submit" id="submitBtn" class="btn btn-consultant btn-lg">解析核心基因 · 生成大數據奢華報告</button>
                         </div>
                     </form>
 
                     <div class="loading-spinner" id="loadingSpinner">
-                        <div class="spinner-border" role="status"></div>
-                        <p class="text-muted mt-2 fw-medium">AI 正在配置風格搜尋矩陣並定位附近化妝服飾店，請稍候...</p>
+                        <div class="custom-spinner"></div>
+                        <p class="text-muted small fw-medium">AI 正在轉譯您的色彩圖譜並配置全台導購網絡，請稍候...</p>
                     </div>
                 </div>
 
-                <!-- AI 分析結果展示區 -->
-                <div id="resultSection" class="card p-4 p-md-5 result-box mb-5 shadow">
-                    <h3 class="mb-2" style="color: #5c4033; font-weight: bold;">✨ 您的奢華美學全維度報告</h3>
+                <div id="resultSection" class="card p-4 p-md-5 result-box mb-5">
+                    <h4 class="mb-2 fw-bold text-uppercase" style="letter-spacing: 1px; color: var(--dark-gold);">✨ Votre Rapport d'Esthétique</h4>
                     <p id="imageStatus" class="text-success small mb-4 fw-medium"></p>
-                    <hr>
+                    <hr style="border-color: var(--primary-gold);">
                     
                     <div class="mb-4">
-                        <h5 class="fw-bold text-dark">🎨 1. 個人原生色彩季型診斷</h5>
-                        <p id="colorAnalysis" class="text-secondary fs-6 lh-base"></p>
+                        <h6 class="fw-bold text-dark">🎨 1. 原生色彩季型診斷</h6>
+                        <p id="colorAnalysis" class="text-secondary small lh-base"></p>
                     </div>
                     
                     <div class="mb-4">
-                        <h5 class="fw-bold text-dark">👗 2. 骨架體態服飾結構搭配學</h5>
-                        <p id="outfitSuggestion" class="text-secondary fs-6 lh-base"></p>
+                        <h6 class="fw-bold text-dark">👗 2. 骨架體態結構搭配學</h6>
+                        <p id="outfitSuggestion" class="text-secondary small lh-base"></p>
                     </div>
                     
                     <div class="mb-4">
-                        <h5 class="fw-bold text-dark">💄 3. 風格適配臉部乾淨化妝建議</h5>
-                        <p id="makeupTip" class="text-secondary fs-6 lh-base"></p>
+                        <h6 class="fw-bold text-dark">💄 3. 風格適配臉部精緻化妝方針</h6>
+                        <p id="makeupTip" class="text-secondary small lh-base"></p>
                     </div>
 
                     <div class="mb-2">
-                        <h5 class="fw-bold text-dark mb-2">🖼 4. AI 3D 模擬試衣預覽狀態</h5>
-                        <p id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2"></p>
+                        <h6 class="fw-bold text-dark mb-2">🖼 4. AI 全息虛擬試衣渲染狀態</h6>
+                        <p id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2" style="border: 1px solid var(--primary-gold); font-weight: normal; color: var(--primary-gold);"></p>
                     </div>
                 </div>
 
-                <!-- 🛍️ 核心升級：AI 智慧導購推薦區 -->
-                <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
-                    <h4 class="section-title">🛍️ AI 智慧精選導購：一鍵搜羅當季熱門單品</h4>
-                    <p class="text-muted mb-4">系統已根據您的身型與風格，自動篩選出最合適的電商導購關鍵字。點擊按鈕直接前往各大電商平台採購您的命定單品：</p>
+                <div class="card p-4 p-md-5 mb-5 shadow-sm">
+                    <h4 class="section-title">🛍️ 精選導購推薦 | E-Commerce Portal</h4>
+                    <p class="text-muted small mb-4">演算法已依據您的核心美學報告精選專屬單品關鍵字，點擊即可直達採購：</p>
                     
                     <div class="row g-4">
-                        <!-- 服飾單品導購 -->
                         <div class="col-md-6">
-                            <div class="p-4 rounded-3 h-100" style="background-color: #fff6f4; border: 1px solid #fcdad4;">
-                                <h5 class="fw-bold text-danger mb-2">👗 穿搭推薦單品</h5>
-                                <p class="text-muted small mb-3">大數據篩選字詞：<span id="shopClothKeywords" class="fw-bold text-dark">#</span></p>
-                                <a id="shopClothBtn" href="#" target="_blank" class="btn-shopping-cloth">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
-                                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.64l.5 2H5V8zM2.61 1h11.58l.5 2H2.11l.5-2zM4 13a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                                    </svg>
-                                    搜尋服飾命定單品
-                                </a>
+                            <div class="p-4 h-100" style="background-color: #fafafa; border-top: 2px solid #ee4d2d;">
+                                <h6 class="fw-bold text-dark mb-2">👗 當季服飾高配單品</h6>
+                                <p class="text-muted small mb-3">大數據配對：<span id="shopClothKeywords" class="fw-semibold text-dark">#</span></p>
+                                <a id="shopClothBtn" href="#" target="_blank" class="btn-shopping-cloth">搜尋穿搭命定單品</a>
                             </div>
                         </div>
 
-                        <!-- 彩妝保養導購 -->
                         <div class="col-md-6">
-                            <div class="p-4 rounded-3 h-100" style="background-color: #f2faf9; border: 1px solid #d4f0ec;">
-                                <h5 class="fw-bold text-success mb-2">💄 彩妝適配好物</h5>
-                                <p class="text-muted small mb-3">大數據篩選字詞：<span id="shopMakeupKeywords" class="fw-bold text-dark">#</span></p>
-                                <a id="shopMakeupBtn" href="#" target="_blank" class="btn-shopping-makeup">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bag-heart-fill" viewBox="0 0 16 16">
-                                        <path d="M11.5 4v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5ZM8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1Zm0 6.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
-                                    </svg>
-                                    搜尋彩妝適配好物
-                                </a>
+                            <div class="p-4 h-100" style="background-color: #fafafa; border-top: 2px solid #008080;">
+                                <h6 class="fw-bold text-dark mb-2">💄 風格相容彩妝好物</h6>
+                                <p class="text-muted small mb-3">大數據配對：<span id="shopMakeupKeywords" class="fw-semibold text-dark">#</span></p>
+                                <a id="shopMakeupBtn" href="#" target="_blank" class="btn-shopping-makeup">搜尋彩妝適配好物</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- YouTube 智慧跳轉區 -->
-                <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm text-center">
-                    <h4 class="section-title text-start">📺 YouTube 直達：即刻觀看最新風格大師課</h4>
-                    <p class="text-muted text-start mb-4">系統已根據您選擇的風格，自動配置精準美學搜尋關鍵字。點擊下方按鈕將直接開啟 YouTube 獲取當季最新穿搭教學：</p>
-                    <div class="p-4 rounded-3 mb-2" style="background-color: #f1f1f1;">
-                        <p class="fw-bold mb-3 text-dark">當前配置搜尋詞：<span id="ytKeywords" class="text-danger">「美式休閒 穿搭教學 技巧」</span></p>
-                        <a id="ytJumpBtn" href="https://www.youtube.com/results?search_query=%E7%BE%8E%E5%BC%8F%E4%BC%91%E9%96%92+%E7%A9%BF%E6%90%AD%E6%95%99%E5%AD%B8+%E6%8A%80%E5%B7%A7" target="_blank" class="btn-youtube-jump shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-play-btn-fill" viewBox="0 0 16 16">
-                                <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
-                            </svg>
-                            直接跳轉至 YouTube 觀看實拍教學
-                        </a>
+                <div class="card p-4 p-md-5 mb-5 shadow-sm text-center">
+                    <h4 class="section-title text-start">📺 大師課直達 | Style Masterclass</h4>
+                    <p class="text-muted text-start small mb-4">動態演算技術已配置專屬動態影音搜尋矩陣：</p>
+                    <div class="p-4 mb-2" style="background-color: #f9f9f9; border-left: 3px solid #cc181e;">
+                        <p class="small mb-3 text-dark">影音檢索字詞：<span id="ytKeywords" class="text-danger fw-bold">#</span></p>
+                        <a id="ytJumpBtn" href="#" target="_blank" class="btn-youtube-jump">直接跳轉觀看實拍影音</a>
                     </div>
                 </div>
 
-                <!-- Google 地圖智慧附近定位區 -->
-                <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
-                    <h4 class="section-title">📍 實體店導航：依推薦風格自動搜尋您附近的「化妝與服飾門市」</h4>
-                    <p class="text-muted small mb-3">
-                        地圖已自動鎖定關鍵字：<strong id="mapKeywords" class="text-primary">服飾店 GAP Levi's 化妝品店 彩妝專櫃</strong>。<br>
-                        系統會根據您目前的地理位置，動態在地圖上標記出最符合您所需風格的附近實體彩妝店、服裝專賣店與百貨專櫃：
-                    </p>
-                    <div class="rounded-4 overflow-hidden shadow-sm" style="height: 420px;">
-                        <iframe 
-                            id="mapFrame"
-                            src="https://maps.google.com/maps?q=%E6%9C%8D%E9%A3%BE%E5%BA%97%20GAP%20Levi's%20%E5%8C%96%E5%A6%9D%E5%93%8D%E5%BA%97%20%E5%BD%A9%E5%A6%9D%E5%B0%88%E6%AB%90&t=&z=14&ie=UTF8&iwloc=&output=embed" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                <div class="card p-4 p-md-5 shadow-sm">
+                    <h4 class="section-title">📍 地理定位導航 | Boutique Finder</h4>
+                    <p class="text-muted small mb-3">隨時搜尋距離您當前經緯度最近的實體品牌門市、美妝專櫃與設計師集合店：</p>
+                    <div class="p-2 bg-light mb-3 text-secondary small">
+                        地圖過濾器：<strong id="mapKeywords" class="text-primary">#</strong>
+                    </div>
+                    <div class="overflow-hidden" style="height: 420px; border: 1px solid rgba(212, 175, 55, 0.2);">
+                        <iframe id="mapFrame" src="https://maps.google.com/maps?q=%E6%9C%8D%E9%A3%BE%E5%BA%97%20GAP%20Levi's%20%E5%8C%96%E5%A6%9D%E5%93%8D%E5%BA%97%20%E5%BD%A9%E5%A6%9D%E5%B0%88%E6%AB%90&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
@@ -252,11 +359,13 @@
     </div>
 
     <script>
-        // 初始化預設值展示
-        document.getElementById('shopClothKeywords').innerText = "美式休閒 寬鬆重磅 大學T 丹寧牛仔褲";
-        document.getElementById('shopClothBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent("美式休閒 寬鬆重磅 大學T 丹寧牛仔褲");
-        document.getElementById('shopMakeupKeywords').innerText = "自然裸妝感 霧面唇膏 大地色眼影盤";
-        document.getElementById('shopMakeupBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent("自然裸妝感 霧面唇膏 大地色眼影盤");
+        // 預設狀態初始化
+        const defaultCloth = "美式休閒 寬鬆重磅 大學T 丹寧牛仔褲";
+        const defaultMakeup = "自然裸妝感 霧面唇膏 大地色眼影盤";
+        document.getElementById('shopClothKeywords').innerText = defaultCloth;
+        document.getElementById('shopClothBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultCloth);
+        document.getElementById('shopMakeupKeywords').innerText = defaultMakeup;
+        document.getElementById('shopMakeupBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultMakeup);
 
         document.getElementById('consultantForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -279,34 +388,29 @@
                 const data = await response.json();
                 
                 if(data.status === 'success') {
-                    // 1. 填入分析報告
                     document.getElementById('imageStatus').innerText = data.image_handling;
                     document.getElementById('colorAnalysis').innerText = data.report.color_analysis;
                     document.getElementById('outfitSuggestion').innerText = data.report.outfit_suggestion;
                     document.getElementById('makeupTip').innerText = data.report.makeup_tip;
                     document.getElementById('tryonPreview').innerText = data.report.virtual_tryon_preview;
                     
-                    // 2. 更新 YouTube 跳轉連結
                     document.getElementById('ytKeywords').innerText = "「" + data.report.youtube_search_keywords + "」";
                     document.getElementById('ytJumpBtn').href = data.report.youtube_search_url;
                     
-                    // 3. 更新 Google 地圖
                     document.getElementById('mapKeywords').innerText = data.report.map_search_keywords;
                     document.getElementById('mapFrame').src = data.report.google_map_url;
                     
-                    // 4. 核心升級：動態重塑電商導購連結與字詞
                     document.getElementById('shopClothKeywords').innerText = data.report.shop_cloth_keywords;
                     document.getElementById('shopClothBtn').href = data.report.shopee_cloth_url;
                     
                     document.getElementById('shopMakeupKeywords').innerText = data.report.shop_makeup_keywords;
                     document.getElementById('shopMakeupBtn').href = data.report.shopee_makeup_url;
                     
-                    // 展現結果區
                     resultBox.style.display = 'block';
                     resultBox.scrollIntoView({ behavior: 'smooth' });
                 }
             } catch (error) {
-                alert('大數據導購算力異常，請確認伺服器後台狀態！');
+                alert('串接高端大數據矩陣發生連線異常！');
                 console.error(error);
             } finally {
                 submitBtn.disabled = false;
