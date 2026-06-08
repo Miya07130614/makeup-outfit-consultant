@@ -158,14 +158,19 @@
                         <h5 class="fw-bold text-dark">💄 3. 風格適配臉部乾淨化妝建議</h5>
                         <p id="makeupTip" class="text-secondary fs-6 lh-base"></p>
                     </div>
+
+                    <div class="mb-2">
+                        <h5 class="fw-bold text-dark mb-2">🖼 4. AI 3D 模擬試衣預覽狀態</h5>
+                        <p id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2"></p>
+                    </div>
                 </div>
 
                 <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm text-center">
                     <h4 class="section-title text-start">📺 YouTube 直達：即刻觀看最新風格大師課</h4>
                     <p class="text-muted text-start mb-4">系統已根據您選擇的風格，自動配置精準美學搜尋關鍵字。點擊下方按鈕將直接開啟 YouTube 獲取當季最新穿搭教學：</p>
                     <div class="p-4 rounded-3 mb-2" style="background-color: #f1f1f1;">
-                        <p class="fw-bold mb-3 text-dark">自動配置搜尋詞：<span id="ytKeywords" class="text-danger">#</span></p>
-                        <a id="ytJumpBtn" href="#" target="_blank" class="btn-youtube-jump shadow-sm">
+                        <p class="fw-bold mb-3 text-dark">當前配置搜尋詞：<span id="ytKeywords" class="text-danger">「美式休閒 穿搭教學 技巧」</span></p>
+                        <a id="ytJumpBtn" href="https://www.youtube.com/results?search_query=%E7%BE%8E%E5%BC%8F%E4%BC%91%E9%96%92+%E7%A9%BF%E6%90%AD%E6%95%99%E5%AD%B8+%E6%8A%80%E5%B7%A7" target="_blank" class="btn-youtube-jump shadow-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-play-btn-fill" viewBox="0 0 16 16">
                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
                             </svg>
@@ -177,13 +182,13 @@
                 <div class="card p-4 p-md-5 bg-white mb-5 shadow-sm">
                     <h4 class="section-title">📍 實體店導航：依推薦風格自動搜尋您附近的「化妝與服飾門市」</h4>
                     <p class="text-muted small mb-3">
-                        地圖已自動鎖定關鍵字：<strong id="mapKeywords" class="text-primary">#</strong>。<br>
-                        系統會根據您目前的地理位置，動態在地圖上標記出最符合您所需风格的附近實體彩妝店、服裝專賣店與百貨專櫃：
+                        地圖已自動鎖定關鍵字：<strong id="mapKeywords" class="text-primary">服飾店 GAP Levi's 化妝品店 彩妝專櫃</strong>。<br>
+                        系統會根據您目前的地理位置，動態在地圖上標記出最符合您所需風格的附近實體彩妝店、服裝專賣店與百貨專櫃：
                     </p>
                     <div class="rounded-4 overflow-hidden shadow-sm" style="height: 420px;">
                         <iframe 
                             id="mapFrame"
-                            src="http://googleusercontent.com/maps.google.com/6" 
+                            src="https://maps.google.com/maps?q=%E6%9C%8D%E9%A3%BE%E5%BA%97%20GAP%20Levi's%20%E5%8C%96%E5%A6%9D%E5%93%8D%E5%BA%97%20%E5%BD%A9%E5%A6%9D%E5%B0%88%E6%AB%90&t=&z=14&ie=UTF8&iwloc=&output=embed" 
                             width="100%" 
                             height="100%" 
                             style="border:0;" 
@@ -220,11 +225,12 @@
                 const data = await response.json();
                 
                 if(data.status === 'success') {
-                    // 1. 填入分析報告
+                    // 1. 填入分析報告與智能穿搭狀態
                     document.getElementById('imageStatus').innerText = data.image_handling;
                     document.getElementById('colorAnalysis').innerText = data.report.color_analysis;
                     document.getElementById('outfitSuggestion').innerText = data.report.outfit_suggestion;
                     document.getElementById('makeupTip').innerText = data.report.makeup_tip;
+                    document.getElementById('tryonPreview').innerText = data.report.virtual_tryon_preview; // 補齊後這裡不會再卡住出錯
                     
                     // 2. 智慧連動一：更新 YouTube 跳轉連結與文字
                     document.getElementById('ytKeywords').innerText = "「" + data.report.youtube_search_keywords + "」";
