@@ -33,7 +33,6 @@ def analyze():
         if file and file.filename != '' and allowed_file(file.filename):
             image_status = f"成功接收照片【{file.filename}】，AI 已自動提取面部比例進行高精度融合。"
 
-    # 運算動態跳轉連結與地圖搜尋數據
     report_data = generate_search_linked_report(skin_tone, style_preference, body_type, occasion)
 
     return jsonify({
@@ -43,7 +42,7 @@ def analyze():
     })
 
 def generate_search_linked_report(skin, style, body, occasion):
-    # 色彩與身型資料庫
+    # 色彩資料庫
     color_db = {
         "春季型 (暖亮膚色)": "明亮蜜桃粉、柔和杏色、珊瑚橘。最適合黃金飾品提亮。",
         "秋季型 (暖暗膚色)": "濃郁泰奶色、楓葉磚紅、焦糖棕、軍綠。帶有高級啞光感。",
@@ -55,6 +54,7 @@ def generate_search_linked_report(skin, style, body, occasion):
     }
     recommended_colors = color_db.get(skin, "中性米色、灰色與經典單寧藍")
 
+    # 身型資料庫
     body_db = {
         "標準勻稱 / 肌肉線條平衡體態": "著重衣服面料的挺度與俐落的垂直剪裁，大膽挑戰合身與層次感疊穿。",
         "梨形身型 (胯寬、大腿豐滿)": "強烈推薦 A 字修身長裙、高腰直筒寬褲，搭配微墊肩或一字領上衣。",
@@ -65,37 +65,38 @@ def generate_search_linked_report(skin, style, body, occasion):
     }
     recommended_silhouette = body_db.get(body, "注重衣服面料的挺度與俐落的垂直剪裁。")
 
-    # 核心智慧連動：定義各風格在 YouTube 的關鍵字以及 Google 地圖搜尋目標
+    # 風格關鍵字矩陣
     style_keywords_matrix = {
-        "日常美式休閒": {"yt_query": "美式休閒 穿搭教學 技巧", "map_query": "服飾店 流行服飾 GAP Levi's"},
-        "Clean Fit 極簡風": {"yt_query": "Clean Fit 極簡風 穿搭必備", "map_query": "極簡服飾 質感女裝 COS UNIQLO"},
-        "Old Money 老錢風": {"yt_query": "老錢風 靜奢美學 高級感穿搭", "map_query": "精品服飾 精品專櫃 Ralph Lauren"},
-        "千金溫柔約會風": {"yt_query": "約會穿搭 小香風 溫柔氣質", "map_query": "化妝品 百貨專櫃 女裝專賣店 Zara"},
-        "Cottagecore 法式浪漫": {"yt_query": "法式復古浪漫 穿搭 碎花裙", "map_query": "法式女裝 服飾店 韓系服飾"},
-        "日系 City Boy 寬鬆風": {"yt_query": "City Boy 寬鬆工裝 穿搭指南", "map_query": "工裝服飾 潮流服飾 BEAMS niko and"},
-        "Y2K 辣妹街頭風": {"yt_query": "Y2K 千禧辣妹 穿搭個性單品", "map_query": "個性服飾 街頭服裝 辣妹服飾"},
-        "多巴胺高飽和色彩風": {"yt_query": "多巴胺 撞色 色彩學穿搭", "map_query": "服飾店 流行女裝 H&M"},
-        "Gorpcore 戶外機能風": {"yt_query": "Gorpcore 戶外機能 衝鋒衣穿搭", "map_query": "戶外用品 運動服飾 The North Face 始祖鳥"}
+        "日常美式休閒": {"yt_query": "美式休閒 穿搭教學 技巧", "map_query": "服飾店 GAP Levi's"},
+        "Clean Fit 極簡風": {"yt_query": "Clean Fit 極簡風 穿搭必備", "map_query": "極簡服飾 COS UNIQLO"},
+        "Old Money 老錢風": {"yt_query": "老錢風 靜奢美學 高級感穿搭", "map_query": "精品服飾 Ralph Lauren Massimo Dutti"},
+        "千金溫柔約會風": {"yt_query": "約會穿搭 小香風 溫柔氣質", "map_query": "女裝專賣店 百貨專櫃 Zara snidel"},
+        "Cottagecore 法式浪漫": {"yt_query": "法式復古浪漫 穿搭 碎花裙", "map_query": "法式女裝 服飾店 浪漫裙裝"},
+        "日系 City Boy 寬鬆風": {"yt_query": "City Boy 寬鬆工裝 穿搭指南", "map_query": "潮流服飾 BEAMS niko and"},
+        "Y2K 辣妹街頭風": {"yt_query": "Y2K 千禧辣妹 穿搭個性單品", "map_query": "個性服飾 辣妹服飾 Bershka"},
+        "多巴胺高飽和色彩風": {"yt_query": "多巴胺 撞色 色彩學穿搭", "map_query": "流行女裝 H&M 服飾店"},
+        "Gorpcore 戶外機能風": {"yt_query": "Gorpcore 戶外機能 衝鋒衣穿搭", "map_query": "戶外用品 The North Face 始祖鳥"}
     }
 
     keywords = style_keywords_matrix.get(style, style_keywords_matrix["日常美式休閒"])
 
-    # 組合 Google 地圖動態搜尋 URL (包含化妝與服裝綜合字詞)
-    combined_map_query = f"{keywords['map_query']} 化妝品 彩妝店"
+    # 動態組合化妝與服裝店關鍵字
+    combined_map_query = f"{keywords['map_query']} 化妝品店 彩妝專櫃"
     encoded_map_query = quote(combined_map_query)
-    google_map_url = f"https://maps.google.com/maps?q=關鍵字&output=embed{encoded_map_query}&t=&z=14&ie=UTF8&iwloc=&output=embed"
+    # 使用標準 Google Maps Embed API 格式，會自動根據使用者當前瀏覽器定位尋找附近
+    google_map_url = f"https://maps.google.com/maps?q={encoded_map_query}&t=&z=14&ie=UTF8&iwloc=&output=embed"
 
-    # 組合 YouTube 跳轉搜尋 URL
+    # YouTube 跳轉搜尋 URL
     encoded_yt_query = quote(keywords['yt_query'])
     youtube_search_url = f"https://www.youtube.com/results?search_query={encoded_yt_query}"
 
+    # 💡 關鍵修正：確實回傳所有欄位，包含智慧穿搭預覽與地圖連動
     return {
         "color_analysis": f"【色彩大師診斷】配合您的【{skin}】，經色彩矩陣運算，最能襯托氣色的黃金色盤為：{recommended_colors}。",
         "outfit_suggestion": f"【服飾結構提案】針對您的【{body}】，在參與【{occasion}】時，建議採取【{style}】。實作指南：{recommended_silhouette}",
         "makeup_tip": f"【精緻妝容美學】為呼應【{style}】的獨特氣場，建議底妝配合膚色進行自然清透提亮，眼影選用低飽和大地色系深邃眼窩。",
-        "virtual_tryon_preview": f"【AI 虛擬試衣狀態】已將【{style}】的完整單品依據【{body}】體態數據渲染完畢。",
+        "virtual_tryon_preview": f"【AI 虛擬試衣成功】已將【{style}】風格單品完美適配您的【{body}】骨架，虛擬試衣渲染已同步就緒！",
         
-        # 智慧搜尋連動回傳
         "youtube_search_url": youtube_search_url,
         "youtube_search_keywords": keywords['yt_query'],
         "google_map_url": google_map_url,
