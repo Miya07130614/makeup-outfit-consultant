@@ -96,7 +96,7 @@
         .card {
             background: var(--card-bg);
             border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 0px; /* 專業高奢風通常走俐落方角 */
+            border-radius: 0px;
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.04);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
@@ -175,6 +175,22 @@
             margin: 0 auto 15px;
         }
 
+        /* 繆思實驗室專業頁尾樣式 */
+        footer {
+            background-color: var(--luxury-black);
+            color: #777777;
+            padding: 40px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+        .footer-brand {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-gold) !important;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
         /* 動態 Keyframes 庫 */
         @keyframes textFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -186,12 +202,14 @@
 </head>
 <body>
 
+    <!-- 奢華流金封面 -->
     <div class="hero-cover">
         <h1 class="hero-title">MAISON DE L'ESTHÉTIQUE</h1>
         <p class="hero-subtitle">妝搭顧問館 │ AI 智能美學基因測算</p>
         <a href="#mainContent" class="btn-discover">開啟專屬高端測算</a>
     </div>
 
+    <!-- 精緻頂級導覽列 -->
     <nav class="navbar navbar-dark py-3 sticky-top" id="mainContent">
         <div class="container">
             <span class="navbar-brand">✨ MAISON DE L'ESTHÉTIQUE</span>
@@ -203,6 +221,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 
+                <!-- 測算表單區 -->
                 <div class="card p-4 p-md-5 mb-5 shadow-sm">
                     <h3 class="text-center mb-2 fw-bold" style="letter-spacing: 2px;">全維度美學基因解碼</h3>
                     <p class="text-muted text-center small mb-5" style="letter-spacing: 1px;">所有參數均支援大數據預設模組，一鍵即可觸發高階風格媒合</p>
@@ -279,12 +298,14 @@
                         </div>
                     </form>
 
+                    <!-- 高階流金轉圈動畫 -->
                     <div class="loading-spinner" id="loadingSpinner">
                         <div class="custom-spinner"></div>
                         <p class="text-muted small fw-medium">AI 正在轉譯您的色彩圖譜並配置全台導購網絡，請稍候...</p>
                     </div>
                 </div>
 
+                <!-- 報告展示區 -->
                 <div id="resultSection" class="card p-4 p-md-5 result-box mb-5">
                     <h4 class="mb-2 fw-bold text-uppercase" style="letter-spacing: 1px; color: var(--dark-gold);">✨ Votre Rapport d'Esthétique</h4>
                     <p id="imageStatus" class="text-success small mb-4 fw-medium"></p>
@@ -311,6 +332,7 @@
                     </div>
                 </div>
 
+                <!-- AI 智慧精選導購區 -->
                 <div class="card p-4 p-md-5 mb-5 shadow-sm">
                     <h4 class="section-title">🛍️ 精選導購推薦 | E-Commerce Portal</h4>
                     <p class="text-muted small mb-4">演算法已依據您的核心美學報告精選專屬單品關鍵字，點擊即可直達採購：</p>
@@ -334,15 +356,19 @@
                     </div>
                 </div>
 
+                <!-- YouTube 影音特區 -->
                 <div class="card p-4 p-md-5 mb-5 shadow-sm text-center">
                     <h4 class="section-title text-start">📺 大師課直達 | Style Masterclass</h4>
-                    <p class="text-muted text-start small mb-4">動態演算技術已配置專屬動態影音搜尋矩陣：</p>
+                    <p class="text-muted text-start small mb-4">動態演算法已根據條件配置專屬動態影音搜尋矩陣，點擊直達對應影片：</p>
                     <div class="p-4 mb-2" style="background-color: #f9f9f9; border-left: 3px solid #cc181e;">
-                        <p class="small mb-3 text-dark">影音檢索字詞：<span id="ytKeywords" class="text-danger fw-bold">#</span></p>
-                        <a id="ytJumpBtn" href="#" target="_blank" class="btn-youtube-jump">直接跳轉觀看實拍影音</a>
+                        <p class="small mb-3 text-start text-dark">影音檢索字詞：<span id="ytKeywords" class="text-danger fw-bold">#</span></p>
+                        <div class="text-start">
+                            <a id="ytJumpBtn" href="#" target="_blank" class="btn-youtube-jump">直接跳轉觀看實拍影音</a>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Google 地圖區 -->
                 <div class="card p-4 p-md-5 shadow-sm">
                     <h4 class="section-title">📍 地理定位導航 | Boutique Finder</h4>
                     <p class="text-muted small mb-3">隨時搜尋距離您當前經緯度最近的實體品牌門市、美妝專櫃與設計師集合店：</p>
@@ -358,15 +384,32 @@
         </div>
     </div>
 
+    <!-- 繆思實驗室製作 奢華頁尾 -->
+    <footer class="text-center">
+        <div class="container">
+            <div class="footer-brand">MAISON DE L'ESTHÉTIQUE</div>
+            <p class="mb-0 text-white-50 small">© 2026 妝搭顧問館. All Rights Reserved.</p>
+            <p class="mt-2 mb-0" style="color: var(--primary-gold); font-weight: 600; font-size: 0.85rem;">Designed & Developed by 繆思實驗室</p>
+        </div>
+    </footer>
+
     <script>
-        // 預設狀態初始化
+        // 1. 初始化系統預設條件（美式休閒）的各大連結與文字
         const defaultCloth = "美式休閒 寬鬆重磅 大學T 丹寧牛仔褲";
         const defaultMakeup = "自然裸妝感 霧面唇膏 大地色眼影盤";
-        document.getElementById('shopClothKeywords').innerText = defaultCloth;
-        document.getElementById('shopClothBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultCloth);
-        document.getElementById('shopMakeupKeywords').innerText = defaultMakeup;
-        document.getElementById('shopMakeupBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultMakeup);
+        const defaultYT = "美式休閒 穿搭教學 技巧";
 
+        // 設定初始化的畫面文字
+        document.getElementById('shopClothKeywords').innerText = defaultCloth;
+        document.getElementById('shopMakeupKeywords').innerText = defaultMakeup;
+        document.getElementById('ytKeywords').innerText = "「" + defaultYT + "」";
+
+        // 設定初始化的跳轉連結
+        document.getElementById('shopClothBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultCloth);
+        document.getElementById('shopMakeupBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultMakeup);
+        document.getElementById('ytJumpBtn').href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(defaultYT);
+
+        // 2. 表單非同步動態運算
         document.getElementById('consultantForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -388,24 +431,29 @@
                 const data = await response.json();
                 
                 if(data.status === 'success') {
+                    // 填入核心測算報告
                     document.getElementById('imageStatus').innerText = data.image_handling;
                     document.getElementById('colorAnalysis').innerText = data.report.color_analysis;
                     document.getElementById('outfitSuggestion').innerText = data.report.outfit_suggestion;
                     document.getElementById('makeupTip').innerText = data.report.makeup_tip;
                     document.getElementById('tryonPreview').innerText = data.report.virtual_tryon_preview;
                     
+                    // 動態更新 YouTube 影片大師課連結與條件文字
                     document.getElementById('ytKeywords').innerText = "「" + data.report.youtube_search_keywords + "」";
                     document.getElementById('ytJumpBtn').href = data.report.youtube_search_url;
                     
+                    // 動態更新地理位置與地圖
                     document.getElementById('mapKeywords').innerText = data.report.map_search_keywords;
                     document.getElementById('mapFrame').src = data.report.google_map_url;
                     
+                    // 動態更新購物導購關鍵字與電商網址
                     document.getElementById('shopClothKeywords').innerText = data.report.shop_cloth_keywords;
                     document.getElementById('shopClothBtn').href = data.report.shopee_cloth_url;
                     
                     document.getElementById('shopMakeupKeywords').innerText = data.report.shop_makeup_keywords;
                     document.getElementById('shopMakeupBtn').href = data.report.shopee_makeup_url;
                     
+                    // 動態浮現結果區
                     resultBox.style.display = 'block';
                     resultBox.scrollIntoView({ behavior: 'smooth' });
                 }
