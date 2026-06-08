@@ -163,7 +163,7 @@
             transform: translateY(-2px);
         }
 
-        /* 👑 AI 虛擬試衣魔鏡 核心容器 */
+        /* 👑 AI 虛擬試衣魔鏡容器 */
         .virtual-mirror-box {
             background: #161616;
             border: 2px solid var(--primary-gold);
@@ -182,7 +182,6 @@
             filter: brightness(0.95);
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        /* 智能雷射掃描線特效 */
         .mirror-scanner {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 5px;
@@ -191,7 +190,6 @@
             animation: scanMotion 2.5s ease-in-out infinite;
             z-index: 3;
         }
-        /* 虛擬疊加色彩與妝容情境浮層 */
         .mirror-overlay {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
@@ -244,7 +242,6 @@
             margin: 0 auto 15px;
         }
 
-        /* Footer 樣式 */
         footer {
             background-color: var(--luxury-black);
             color: #777777;
@@ -278,7 +275,7 @@
         <a href="#mainContent" class="btn-discover">開啟專屬高端測算</a>
     </div>
 
-    <!-- 精緻頂級導覽列 -->
+    <!-- 頂級導覽列 -->
     <nav class="navbar navbar-dark py-3 sticky-top" id="mainContent">
         <div class="container">
             <span class="navbar-brand">✨ MAISON DE L'ESTHÉTIQUE</span>
@@ -407,19 +404,16 @@
                         </div>
                     </div>
 
-                    <!-- 👑 完美連動：AI 虛擬試衣間實體展示格 -->
+                    <!-- 👑 完美100%數據對齊：AI 虛擬試衣間展示格 -->
                     <div class="row g-4 mb-4 align-items-center">
                         <div class="col-md-5 text-center">
                             <div class="virtual-mirror-box">
                                 <div class="mirror-scanner"></div>
-                                <!-- 連動衣服影像 -->
                                 <img id="mirrorImage" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020" class="mirror-bg-img" alt="AI 試衣鏡像">
                                 <div class="mirror-overlay">
-                                    <div class="small fw-bold text-uppercase" style="color: var(--primary-gold); letter-spacing: 2px;">Maison AI Mirror v2.0</div>
-                                    <!-- 連動穿搭風格文字 -->
-                                    <div class="small text-white fw-semibold mt-1" id="mirrorStyleTag">風格：美式穿搭</div>
-                                    <!-- 連動彩妝妝容文字 -->
-                                    <div class="small text-white-50 mt-1" id="mirrorMakeupTag" style="font-size: 0.8rem; letter-spacing: 1px;">妝容：自然裸妝配置</div>
+                                    <div class="small fw-bold text-uppercase" style="color: var(--primary-gold); letter-spacing: 2px;">Maison AI Mirror v2.5</div>
+                                    <div class="small text-white fw-semibold mt-1" id="mirrorStyleTag">風格：載入中</div>
+                                    <div class="small text-white-50 mt-1" id="mirrorMakeupTag" style="font-size: 0.8rem; letter-spacing: 1px;">妝容：載入中</div>
                                 </div>
                             </div>
                         </div>
@@ -545,7 +539,7 @@
                 const data = await response.json();
                 
                 if(data.status === 'success') {
-                    // 寫入深度核心測算報告
+                    // 寫入深度核心測算報告內容
                     document.getElementById('imageStatus').innerText = data.image_handling;
                     
                     document.getElementById('colorAnalysis').innerHTML = 
@@ -566,52 +560,65 @@
                     // 核心渲染：全息試衣投影狀態文字
                     tryonPreview.innerText = data.report.virtual_tryon_preview;
                     
-                    // 👑 修正版：抓取下拉選單的值（精準字詞比對法）
-                    const styleSelect = document.getElementById('style').value;
-                    const colorSelect = document.getElementById('skin_tone').value;
+                    // 👑 頂級修復核心：直接讀取後端真正輸出給蝦皮導購的關鍵字庫（data.report.shop_cloth_keywords）進行圖片判定
+                    const finalClothKeywords = data.report.shop_cloth_keywords;
+                    const finalMakeupKeywords = data.report.shop_makeup_keywords;
                     
-                    // A. 更新試衣鏡浮層文字
-                    mirrorStyleTag.innerText = styleSelect ? "風格：" + styleSelect.split(' ')[0] : "風格：日常美式休閒";
-                    mirrorMakeupTag.innerText = colorSelect ? "妝容：" + colorSelect.split(' ')[0] + "專屬配定" : "妝容：智慧中性裸妝配定";
-                    
-                    // B. 依據核心風格，精準變更試衣鏡圖片與色調
-                    if (styleSelect.includes("Clean") || styleSelect.includes("極簡")) {
+                    // A. 動態解析目前後端生成的首要核心風格
+                    let detectedStyleTitle = "日常美式休閒";
+                    if (finalClothKeywords.includes("Clean") || finalClothKeywords.includes("極簡")) {
+                        detectedStyleTitle = "Clean Fit 極簡風";
                         mirrorImage.src = "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=1000";
-                    } else if (styleSelect.includes("Old") || styleSelect.includes("老錢")) {
+                    } else if (finalClothKeywords.includes("Old") || finalClothKeywords.includes("老錢") || finalClothKeywords.includes("靜奢")) {
+                        detectedStyleTitle = "Old Money 老錢風";
                         mirrorImage.src = "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1000";
-                    } else if (styleSelect.includes("千金") || styleSelect.includes("柔美")) {
+                    } else if (finalClothKeywords.includes("千金") || finalClothKeywords.includes("裙裝") || finalClothKeywords.includes("小香")) {
+                        detectedStyleTitle = "千金柔美約會風";
                         mirrorImage.src = "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000";
-                    } else if (styleSelect.includes("Y2K") || styleSelect.includes("辣妹")) {
+                    } else if (finalClothKeywords.includes("Y2K") || finalClothKeywords.includes("辣妹") || finalClothKeywords.includes("短版")) {
+                        detectedStyleTitle = "Y2K 街頭辣妹風";
                         mirrorImage.src = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1000";
-                    } else if (styleSelect.includes("Gorpcore") || styleSelect.includes("機能")) {
+                    } else if (finalClothKeywords.includes("機能") || finalClothKeywords.includes("Gorpcore") || finalClothKeywords.includes("衝鋒")) {
+                        detectedStyleTitle = "Gorpcore 機能風";
                         mirrorImage.src = "https://images.unsplash.com/photo-1548883354-7622d03aca27?q=80&w=1000";
-                    } else if (styleSelect.includes("浪漫") || styleSelect.includes("法式")) {
+                    } else if (finalClothKeywords.includes("碎花") || finalClothKeywords.includes("浪漫") || finalClothKeywords.includes("法式")) {
+                        detectedStyleTitle = "法式浪漫復古風";
                         mirrorImage.src = "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1000";
-                    } else if (styleSelect.includes("多巴胺")) {
+                    } else if (finalClothKeywords.includes("多巴胺") || finalClothKeywords.includes("撞色")) {
+                        detectedStyleTitle = "多巴胺撞色風";
                         mirrorImage.src = "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=1000";
-                    } else if (styleSelect.includes("City") || styleSelect.includes("日系")) {
+                    } else if (finalClothKeywords.includes("City") || finalClothKeywords.includes("工裝") || finalClothKeywords.includes("寬鬆")) {
+                        detectedStyleTitle = "日系 City Boy 風";
                         mirrorImage.src = "https://images.unsplash.com/photo-1516257984-b1b4d707412e?q=80&w=1000";
                     } else {
-                        // 預設美式休閒
+                        // 真正的預設降級圖
+                        detectedStyleTitle = "日常美式休閒";
                         mirrorImage.src = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020";
                     }
+
+                    // B. 動態抓取後端回傳的彩妝關鍵字，擷取前 5 個字作為魔鏡標籤
+                    let detectedMakeupTitle = finalMakeupKeywords.split(' ')[0] || "高階智慧裸妝";
                     
-                    // 動態更新各大導購、影片與條件文字
+                    // C. 100% 同步更新魔鏡浮層文字
+                    mirrorStyleTag.innerText = "風格：" + detectedStyleTitle;
+                    mirrorMakeupTag.innerText = "妝容：" + detectedMakeupTitle + " 方案";
+                    
+                    // 同步寫入網頁下方各大導購、影片與條件文字
                     document.getElementById('ytKeywords').innerText = "「" + data.report.youtube_search_keywords + "」";
                     document.getElementById('ytJumpBtn').href = data.report.youtube_search_url;
                     
-                    document.getElementById('shopClothKeywords').innerText = data.report.shop_cloth_keywords;
+                    document.getElementById('shopClothKeywords').innerText = finalClothKeywords;
                     document.getElementById('shopClothBtn').href = data.report.shopee_cloth_url;
                     
-                    document.getElementById('shopMakeupKeywords').innerText = data.report.shop_makeup_keywords;
+                    document.getElementById('shopMakeupKeywords').innerText = finalMakeupKeywords;
                     document.getElementById('shopMakeupBtn').href = data.report.shopee_makeup_url;
                     
-                    // 地圖動態嵌入
+                    // 地圖同步動態嵌入
                     const combinedMapQuery = "附近 " + data.report.map_search_keywords;
                     document.getElementById('mapKeywords').innerText = combinedMapQuery;
                     document.getElementById('mapFrame').src = "https://maps.google.com/maps?q=" + encodeURIComponent(combinedMapQuery) + "&t=&z=14&ie=UTF8&iwloc=&output=embed";
                     
-                    // 流暢滑入結果區
+                    // 流暢滑入結果報告區
                     resultBox.style.display = 'block';
                     resultBox.scrollIntoView({ behavior: 'smooth' });
                 }
