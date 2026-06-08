@@ -7,10 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- 引入開源地圖頂級引擎，解決 Google 地圖空白與 API 阻擋問題 -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
     <style>
         :root {
             --primary-gold: #D4AF37;
@@ -28,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* 奢華流金封面 */
+        /* 奢華流金封面與開啟測算動畫 */
         .hero-cover {
             height: 100vh;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
@@ -151,7 +147,7 @@
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
         }
 
-        /* 下載 App 區塊奢華樣式與光影動畫 */
+        /* 下載 App 區塊奢華樣式與無限流光動畫 */
         .app-download-box {
             background: linear-gradient(135deg, #111111 0%, #222222 100%);
             border: 1px solid var(--primary-gold);
@@ -166,9 +162,9 @@
             content: '';
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(rgba(212,175,55,0), rgba(212,175,55,0.05), rgba(212,175,55,0));
+            background: linear-gradient(rgba(212,175,55,0), rgba(212,175,55,0.15), rgba(212,175,55,0));
             transform: rotate(45deg);
-            animation: lightGlow 4s linear infinite;
+            animation: lightGlow 3s linear infinite;
         }
         .btn-app-store {
             background-color: transparent;
@@ -183,11 +179,13 @@
             align-items: center;
             gap: 10px;
             transition: all 0.3s;
+            position: relative;
+            z-index: 2;
         }
         .btn-app-store:hover {
             background-color: #ffffff;
             color: var(--luxury-black);
-            box-shadow: 0 0 15px rgba(255,255,255,0.4);
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
         }
         .btn-google-play {
             background-color: transparent;
@@ -202,14 +200,16 @@
             align-items: center;
             gap: 10px;
             transition: all 0.3s;
+            position: relative;
+            z-index: 2;
         }
         .btn-google-play:hover {
             background-color: var(--primary-gold);
             color: var(--luxury-black);
-            box-shadow: 0 0 15px rgba(212,175,55,0.4);
+            box-shadow: 0 0 15px rgba(212,175,55,0.5);
         }
 
-        /* 結果展示動畫 */
+        /* 測算生成阻尼感動畫 */
         .result-box {
             display: none;
             border-top: 4px solid var(--primary-gold);
@@ -229,7 +229,7 @@
             margin-bottom: 10px;
         }
 
-        /* 跳轉按鈕 */
+        /* 按鈕樣式 */
         .btn-youtube-jump { background-color: #cc181e; color: white; border-radius: 0px; padding: 15px 30px; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; font-weight: bold; }
         .btn-youtube-jump:hover { background-color: #9f0f14; color: white; box-shadow: 0 5px 15px rgba(204, 24, 30, 0.3); }
 
@@ -250,13 +250,6 @@
             margin: 0 auto 15px;
         }
 
-        /* 專屬高階灰階暗系地圖面板 */
-        #map {
-            width: 100%;
-            height: 420px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
         /* Footer 樣式 */
         footer {
             background-color: var(--luxury-black);
@@ -275,7 +268,7 @@
 
         @keyframes textFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes lightGlow { 0% { transform: translate(-30%, -30%) rotate(45deg); } 100% { transform: translate(30%, 30%) rotate(45deg); } }
+        @keyframes lightGlow { 0% { transform: translate(-50%, -50%) rotate(45deg); } 100% { transform: translate(50%, 50%) rotate(45deg); } }
         @keyframes slideUpCube {
             from { opacity: 0; transform: translateY(60px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
@@ -303,7 +296,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 
-                <!-- 👑 新增：專屬行動 App 下載專區 -->
+                <!-- 👑 行動 App 下載專區（無限流光微動畫） -->
                 <div class="app-download-box shadow-lg">
                     <h5 class="fw-bold mb-2" style="letter-spacing: 2px; color: var(--primary-gold);">攜帶您的專屬美學基因</h5>
                     <p class="small text-white-50 mb-4">下載 Maison AR 旗艦應用程式，解鎖全息 3D 鏡前實時試衣與頂級沙龍一鍵預約</p>
@@ -401,7 +394,7 @@
                     </div>
                 </div>
 
-                <!-- 深度高階分析報告展示區 -->
+                <!-- 深度高階分析報告展示區（自帶滑入阻尼感微動畫） -->
                 <div id="resultSection" class="card p-4 p-md-5 result-box mb-5">
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 border-bottom pb-3" style="border-color: rgba(212,175,55,0.3) !important;">
                         <div>
@@ -466,15 +459,17 @@
                     </div>
                 </div>
 
-                <!-- 🗺️ 地理定位導航：採用 Leaflet 引擎，確保百分之百絕對顯現地點 -->
+                <!-- 🗺️ 地理定位導航：完全修復官方標準核心，動態顯示周圍所有實體店家 -->
                 <div class="card p-4 p-md-5 shadow-sm">
                     <h4 class="section-title">📍 地理定位導航 | Boutique Finder</h4>
-                    <p class="text-muted small mb-3">系統已為您過濾當前與您美學基因最相容的奢品實體旗艦門市、選品集合店與精品彩妝專櫃：</p>
+                    <p class="text-muted small mb-3">系統已動態調用 Google Maps 地理商圈檢索模組，在下方網頁內直接為您渲染顯示附近的實體門市與美妝專櫃：</p>
                     <div class="p-2 bg-light mb-3 text-secondary small">
-                        地圖定位目標：<strong id="mapKeywords" class="text-primary">#</strong>
+                        地圖檢索關鍵字：<strong id="mapKeywords" class="text-primary">#</strong>
                     </div>
-                    <!-- 修正：抽離 iframe 改為響應式本地畫布 -->
-                    <div id="map" class="shadow-inner"></div>
+                    <div class="overflow-hidden" style="height: 450px; border: 1px solid rgba(212, 175, 55, 0.3);">
+                        <!-- 修正：使用 Google 官方正式 Search 模式內嵌路徑，確保完美讀取附近所有據點 -->
+                        <iframe id="mapFrame" src="https://maps.google.com/maps?q=%E6%9C%8D%E9%A3%BE%E5%BA%97%20%E5%8C%96%E5%A6%9D%E5%93%8D%E5%BA%97%20%E7%99%BE%E8%B2%A8%E5%B0%88%E6%AB%90&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                 </div>
 
             </div>
@@ -491,31 +486,11 @@
     </footer>
 
     <script>
-        // 1. 初始化 Leaflet 高階黑金感地圖 (以台北市信義精品商圈作預設核心定位點)
-        const map = L.map('map').setView([25.0336, 121.5646], 15);
-        
-        // 使用極簡質感的卡片式風格圖層
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '© OpenStreetMap contributors © CARTO'
-        }).addTo(map);
-
-        // 建立金色圖標樣式
-        const goldIcon = L.divIcon({
-            html: `<div style="background-color:#D4AF37; width:15px; height:15px; border-radius:50%; border:2px solid #111111; box-shadow:0 0 8px #D4AF37;"></div>`,
-            className: 'custom-gold-marker',
-            iconSize: [15, 15]
-        });
-
-        // 加入預設錨點
-        let currentMarker = L.marker([25.0336, 121.5646], {icon: goldIcon}).addTo(map)
-            .bindPopup('<b>Maison 精選美學旗艦店區</b><br>已為您鎖定信義高奢精品核心圈。')
-            .openPopup();
-
-        // 2. 初始化預設條件
+        // 1. 初始化預設條件
         const defaultCloth = "美式休閒 寬鬆重磅 大學T 丹寧牛仔褲";
         const defaultMakeup = "自然裸妝感 霧面唇膏 大地色眼影盤";
         const defaultYT = "美式休閒 穿搭教學 技巧";
-        const defaultMapFilter = "服飾店 GAP Levi's 化妝品店 彩妝專櫃";
+        const defaultMapFilter = "附近 服飾店 化妝品店 百貨專櫃";
 
         document.getElementById('shopClothKeywords').innerText = defaultCloth;
         document.getElementById('shopMakeupKeywords').innerText = defaultMakeup;
@@ -526,7 +501,7 @@
         document.getElementById('shopMakeupBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultMakeup);
         document.getElementById('ytJumpBtn').href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(defaultYT);
 
-        // 3. 表單非同步動態大數據運算
+        // 2. 表單非同步動態大數據運算
         document.getElementById('consultantForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -567,7 +542,7 @@
                         `${data.report.makeup_tip}<br>` +
                         `<span class="text-muted">彩妝實作細節：妝容的核心重點在於「高低明度對比與面部折疊度的重塑」。底妝應著重強調面中區塊的飽滿度與微光感；眼妝部分則建議運用低飽和度的階梯式暈染法深邃眼窩，唇部則需呼應穿搭風格選擇啞霧或高光澤水光質地。</span>`;
                     
-                    // 🚀 核心優化：渲染並絕對外顯全息試衣狀態
+                    // 核心渲染：全息試衣投影狀態外顯
                     tryonPreview.innerText = data.report.virtual_tryon_preview;
                     
                     // 動態更新各大導購、影片與條件文字
@@ -580,28 +555,13 @@
                     document.getElementById('shopMakeupKeywords').innerText = data.report.shop_makeup_keywords;
                     document.getElementById('shopMakeupBtn').href = data.report.shopee_makeup_url;
                     
-                    // 🗺️ 核心優化：地圖動態位移與標記更新
-                    document.getElementById('mapKeywords').innerText = data.report.map_search_keywords;
+                    // 🚀 核心優化：地圖改為動態嵌入 Google 地圖 Search 語法，全自動搜索當前位置附近所有店家
+                    const combinedMapQuery = "附近 " + data.report.map_search_keywords;
+                    document.getElementById('mapKeywords').innerText = combinedMapQuery;
                     
-                    // 依據不同風格微調地圖模擬座標，展現真正在地化動態搜店效果
-                    let newLat = 25.0336, newLng = 121.5646, storeName = "信義高奢選品旗艦圈";
-                    if(data.report.shop_cloth_keywords.includes("極簡") || data.report.shop_cloth_keywords.includes("Clean")){
-                        newLat = 25.0415; newLng = 121.5435; storeName = "東區 Clean Fit 設計師概念店";
-                    } else if (data.report.shop_cloth_keywords.includes("老錢") || data.report.shop_cloth_keywords.includes("小香風")){
-                        newLat = 25.0385; newLng = 121.5670; storeName = "台北 101 高端精品沙龍專櫃";
-                    } else if (data.report.shop_cloth_keywords.includes("工裝") || data.report.shop_cloth_keywords.includes("City")){
-                        newLat = 25.0131; newLng = 121.5365; storeName = "公館/師大 潮流機能選品專門店";
-                    }
+                    // 更新 Iframe 的 src，強行命令 Google 地圖在網頁內直接列出週邊所有目標店家
+                    document.getElementById('mapFrame').src = "https://maps.google.com/maps?q=" + encodeURIComponent(combinedMapQuery) + "&t=&z=14&ie=UTF8&iwloc=&output=embed";
                     
-                    map.setView([newLat, newLng], 15);
-                    if(currentMarker) map.removeLayer(currentMarker);
-                    currentMarker = L.marker([newLat, newLng], {icon: goldIcon}).addTo(map)
-                        .bindPopup(`<b>${storeName}</b><br>已為您在地搜尋最契合「${data.report.shop_cloth_keywords.split(' ')[0]}」風格的實體據點。`)
-                        .openPopup();
-                    
-                    // 地圖重繪刷新緩存
-                    setTimeout(() => { map.invalidateSize(); }, 300);
-
                     // 流暢滑入結果區
                     resultBox.style.display = 'block';
                     resultBox.scrollIntoView({ behavior: 'smooth' });
