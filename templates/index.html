@@ -147,7 +147,7 @@
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
         }
 
-        /* 精簡版 App 下載格樣式 */
+        /* App 下載格樣式 */
         .app-grid-box {
             border: 1px solid rgba(212, 175, 55, 0.3);
             background-color: #111111;
@@ -163,43 +163,44 @@
             transform: translateY(-2px);
         }
 
-        /* 👑 AI 虛擬魔鏡試衣間格子樣式 */
+        /* 👑 AI 虛擬試衣魔鏡 核心容器 */
         .virtual-mirror-box {
             background: #161616;
-            border: 1px solid var(--primary-gold);
+            border: 2px solid var(--primary-gold);
             position: relative;
             width: 100%;
             max-width: 380px;
-            height: 480px;
+            height: 500px;
             margin: 0 auto;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
         .mirror-bg-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.95) contrast(1.05);
-            transition: all 0.5s ease;
+            filter: brightness(0.95);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
         /* 智能雷射掃描線特效 */
         .mirror-scanner {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
+            top: 0; left: 0; width: 100%; height: 5px;
             background: linear-gradient(to right, transparent, var(--primary-gold), transparent);
             box-shadow: 0 0 15px var(--primary-gold);
-            animation: scanMotion 3s ease-in-out infinite;
+            animation: scanMotion 2.5s ease-in-out infinite;
             z-index: 3;
         }
-        /* 虛擬疊加遮罩 */
+        /* 虛擬疊加色彩與妝容情境浮層 */
         .mirror-overlay {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
-            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            background: linear-gradient(transparent, rgba(17, 17, 17, 0.95));
             padding: 20px;
             color: #fff;
             z-index: 4;
             text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         /* 測算生成阻尼感動畫 */
@@ -289,7 +290,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 
-                <!-- 👑 行動 App 下載區：精簡版雙規格大格子 -->
+                <!-- 行動 App 下載區（精簡雙規格大格子） -->
                 <div class="mb-5">
                     <h5 class="fw-bold mb-3 text-center" style="letter-spacing: 2px; color: var(--dark-gold);">攜帶您的專屬美學基因</h5>
                     <div class="row g-3">
@@ -354,7 +355,7 @@
                             <div class="col-md-6">
                                 <label for="style" class="form-label fw-semibold">4. 意向穿搭美學矩陣</label>
                                 <select class="form-select" id="style" name="style">
-                                    <option value="">智慧媒合（預設美式休閒）</option>
+                                    <option value="">智慧媒合（預設日常美式休閒）</option>
                                     <option value="日常美式休閒">日常美式休閒 (舒適丹寧/T-Shirt)</option>
                                     <option value="Clean Fit 極簡風">Clean Fit 極簡風 (俐落、低調高質感)</option>
                                     <option value="Old Money 老錢風">Old Money 老錢風 (低調奢華、靜奢美學)</option>
@@ -406,16 +407,19 @@
                         </div>
                     </div>
 
-                    <!-- 👑 新增：AI 虛擬試衣間實體展示格子 -->
+                    <!-- 👑 完美連動：AI 虛擬試衣間實體展示格 -->
                     <div class="row g-4 mb-4 align-items-center">
                         <div class="col-md-5 text-center">
                             <div class="virtual-mirror-box">
                                 <div class="mirror-scanner"></div>
-                                <!-- 預設示意圖，生成後透過 JS 換成時尚對應風格服飾圖 -->
-                                <img id="mirrorImage" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020&auto=format&fit=crop" class="mirror-bg-img" alt="AI 試衣鏡像">
+                                <!-- 連動衣服影像 -->
+                                <img id="mirrorImage" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020" class="mirror-bg-img" alt="AI 試衣鏡像">
                                 <div class="mirror-overlay">
-                                    <div class="small fw-bold text-uppercase" style="color: var(--primary-gold); letter-spacing: 2px;">Maison AI Mirror</div>
-                                    <div class="small text-white-50 mt-1" id="mirrorStyleTag">全息渲染穿搭中...</div>
+                                    <div class="small fw-bold text-uppercase" style="color: var(--primary-gold); letter-spacing: 2px;">Maison AI Mirror v2.0</div>
+                                    <!-- 連動穿搭風格文字 -->
+                                    <div class="small text-white fw-semibold mt-1" id="mirrorStyleTag">風格：美式穿搭</div>
+                                    <!-- 連動彩妝妝容文字 -->
+                                    <div class="small text-white-50 mt-1" id="mirrorMakeupTag" style="font-size: 0.8rem; letter-spacing: 1px;">妝容：自然裸妝配置</div>
                                 </div>
                             </div>
                         </div>
@@ -525,6 +529,7 @@
             const tryonPreview = document.getElementById('tryonPreview');
             const mirrorImage = document.getElementById('mirrorImage');
             const mirrorStyleTag = document.getElementById('mirrorStyleTag');
+            const mirrorMakeupTag = document.getElementById('mirrorMakeupTag');
             
             submitBtn.disabled = true;
             spinner.style.display = 'block';
@@ -561,22 +566,33 @@
                     // 核心渲染：全息試衣投影狀態文字
                     tryonPreview.innerText = data.report.virtual_tryon_preview;
                     
-                    // 👑 智能換圖邏輯：根據使用者選取的風格，更換試衣鏡格子內對應的時尚穿搭圖片
-                    const selectedStyle = document.getElementById('style').value;
-                    mirrorStyleTag.innerText = selectedStyle ? "已生成：" + selectedStyle : "已生成：預設美式休閒";
+                    // 👑 修正版：抓取下拉選單的值（精準字詞比對法）
+                    const styleSelect = document.getElementById('style').value;
+                    const colorSelect = document.getElementById('skin_tone').value;
                     
-                    if (selectedStyle.includes("極簡") || selectedStyle.includes("Clean")) {
+                    // A. 更新試衣鏡浮層文字
+                    mirrorStyleTag.innerText = styleSelect ? "風格：" + styleSelect.split(' ')[0] : "風格：日常美式休閒";
+                    mirrorMakeupTag.innerText = colorSelect ? "妝容：" + colorSelect.split(' ')[0] + "專屬配定" : "妝容：智慧中性裸妝配定";
+                    
+                    // B. 依據核心風格，精準變更試衣鏡圖片與色調
+                    if (styleSelect.includes("Clean") || styleSelect.includes("極簡")) {
                         mirrorImage.src = "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=1000";
-                    } else if (selectedStyle.includes("老錢") || selectedStyle.includes("Money")) {
+                    } else if (styleSelect.includes("Old") || styleSelect.includes("老錢")) {
                         mirrorImage.src = "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1000";
-                    } else if (selectedStyle.includes("千金") || selectedStyle.includes("約會")) {
+                    } else if (styleSelect.includes("千金") || styleSelect.includes("柔美")) {
                         mirrorImage.src = "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000";
-                    } else if (selectedStyle.includes("Y2K") || selectedStyle.includes("辣妹")) {
+                    } else if (styleSelect.includes("Y2K") || styleSelect.includes("辣妹")) {
                         mirrorImage.src = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1000";
-                    } else if (selectedStyle.includes("機能") || selectedStyle.includes("Gorpcore")) {
+                    } else if (styleSelect.includes("Gorpcore") || styleSelect.includes("機能")) {
                         mirrorImage.src = "https://images.unsplash.com/photo-1548883354-7622d03aca27?q=80&w=1000";
+                    } else if (styleSelect.includes("浪漫") || styleSelect.includes("法式")) {
+                        mirrorImage.src = "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1000";
+                    } else if (styleSelect.includes("多巴胺")) {
+                        mirrorImage.src = "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=1000";
+                    } else if (styleSelect.includes("City") || styleSelect.includes("日系")) {
+                        mirrorImage.src = "https://images.unsplash.com/photo-1516257984-b1b4d707412e?q=80&w=1000";
                     } else {
-                        // 預設美式休閒 / 其他
+                        // 預設美式休閒
                         mirrorImage.src = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1020";
                     }
                     
