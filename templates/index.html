@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>妝搭顧問館 | Maison de L'Esthétique AI</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -13,7 +13,8 @@
             --dark-gold: #AA7C11;
             --luxury-black: #111111;
             --soft-white: #FDFBF7;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --muted-gray: #555555;
+            --card-bg: rgba(255, 255, 255, 0.95);
         }
 
         body {
@@ -115,7 +116,7 @@
             letter-spacing: 1px;
         }
 
-        /* 輸入元件高奢美化 */
+        /* 輸入元件 */
         .form-control, .form-select {
             border: 1px solid #dddddd;
             border-radius: 0px;
@@ -154,7 +155,24 @@
             animation: slideUpCube 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* YouTube 與導購整合按鈕 */
+        /* 專業報告排版樣式 */
+        .report-section {
+            background: #ffffff;
+            border-left: 3px solid var(--primary-gold);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .report-meta-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--luxury-black);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 按鈕樣式 */
         .btn-youtube-jump { background-color: #cc181e; color: white; border-radius: 0px; padding: 15px 30px; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; font-weight: bold; }
         .btn-youtube-jump:hover { background-color: #9f0f14; color: white; box-shadow: 0 5px 15px rgba(204, 24, 30, 0.3); }
 
@@ -164,7 +182,7 @@
         .btn-shopping-makeup { background-color: #008080; color: white; font-weight: bold; border-radius: 0px; padding: 15px 20px; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; width: 100%; justify-content: center; }
         .btn-shopping-makeup:hover { background-color: #005a5a; color: white; box-shadow: 0 5px 15px rgba(0, 128, 128, 0.3); }
 
-        /* 全新雙環流金 Spinner 動畫 */
+        /* Spinner 動畫 */
         .loading-spinner { display: none; margin: 30px auto; text-align: center; }
         .custom-spinner {
             width: 4rem; height: 4rem;
@@ -175,7 +193,7 @@
             margin: 0 auto 15px;
         }
 
-        /* 繆思實驗室專業頁尾樣式 */
+        /* Footer 樣式 */
         footer {
             background-color: var(--luxury-black);
             color: #777777;
@@ -191,7 +209,6 @@
             margin-bottom: 10px;
         }
 
-        /* 動態 Keyframes 庫 */
         @keyframes textFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes slideUpCube {
@@ -256,7 +273,7 @@
                                     <option value="蘋果身型 (腰腹較圓潤)">蘋果身型 (腰腹圓潤、四肢相對纖細)</option>
                                     <option value="倒三角身型 (肩膀寬闊、骨架大)">倒三角身型 (肩膀寬闊、上寬下窄、骨架大)</option>
                                     <option value="沙漏身型 (胸豐臀翹腰細)">沙漏身型 (胸豐、臀翹、腰部極度纖細)</option>
-                                    <option value="矩形 / H 型身型 (腰線不明顯)">矩形 / H 型身型 (腰線不明顯、骨感骨架)</option>
+                                    <option value="矩形 / H 型身型 (腰線不明明顯)">矩形 / H 型身型 (腰線不明顯、骨感骨架)</option>
                                 </select>
                             </div>
                         </div>
@@ -305,30 +322,36 @@
                     </div>
                 </div>
 
-                <!-- 報告展示區 -->
+                <!-- 深度高階分析報告展示區 -->
                 <div id="resultSection" class="card p-4 p-md-5 result-box mb-5">
-                    <h4 class="mb-2 fw-bold text-uppercase" style="letter-spacing: 1px; color: var(--dark-gold);">✨ Votre Rapport d'Esthétique</h4>
-                    <p id="imageStatus" class="text-success small mb-4 fw-medium"></p>
-                    <hr style="border-color: var(--primary-gold);">
-                    
-                    <div class="mb-4">
-                        <h6 class="fw-bold text-dark">🎨 1. 原生色彩季型診斷</h6>
-                        <p id="colorAnalysis" class="text-secondary small lh-base"></p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 border-bottom pb-3" style="border-color: rgba(212,175,55,0.3) !important;">
+                        <div>
+                            <h4 class="mb-1 fw-bold text-uppercase" style="letter-spacing: 1px; color: var(--dark-gold);">✨ Votre Rapport d'Esthétique</h4>
+                            <p id="imageStatus" class="text-success small mb-0 fw-medium"></p>
+                        </div>
+                        <!-- AI 全息虛擬試衣渲染狀態區（獨立抽離定位，確保絕對顯現） -->
+                        <div class="mt-3 mt-md-0">
+                            <span class="d-block text-muted small mb-1 fw-bold text-md-end">全息投影狀態：</span>
+                            <div id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2" style="border: 1px solid var(--primary-gold); font-weight: 600; color: var(--primary-gold); letter-spacing: 1px;"></div>
+                        </div>
                     </div>
                     
-                    <div class="mb-4">
-                        <h6 class="fw-bold text-dark">👗 2. 骨架體態結構搭配學</h6>
-                        <p id="outfitSuggestion" class="text-secondary small lh-base"></p>
+                    <!-- 專業章節 1 -->
+                    <div class="report-section">
+                        <div class="report-meta-title">🎨 1. 四季原生色彩色彩矩陣分析</div>
+                        <p id="colorAnalysis" class="text-secondary small lh-lg" style="text-align: justify;"></p>
                     </div>
                     
-                    <div class="mb-4">
-                        <h6 class="fw-bold text-dark">💄 3. 風格適配臉部精緻化妝方針</h6>
-                        <p id="makeupTip" class="text-secondary small lh-base"></p>
+                    <!-- 專業章節 2 -->
+                    <div class="report-section">
+                        <div class="report-meta-title">👗 2. 骨架體態與面料幾何剪裁學</div>
+                        <p id="outfitSuggestion" class="text-secondary small lh-lg" style="text-align: justify;"></p>
                     </div>
-
-                    <div class="mb-2">
-                        <h6 class="fw-bold text-dark mb-2">🖼 4. AI 全息虛擬試衣渲染狀態</h6>
-                        <p id="tryonPreview" class="badge bg-dark text-wrap fs-6 px-3 py-2" style="border: 1px solid var(--primary-gold); font-weight: normal; color: var(--primary-gold);"></p>
+                    
+                    <!-- 專業章節 3 -->
+                    <div class="report-section">
+                        <div class="report-meta-title">💄 3. 高階風格氣場彩妝定調方案</div>
+                        <p id="makeupTip" class="text-secondary small lh-lg" style="text-align: justify;"></p>
                     </div>
                 </div>
 
@@ -394,17 +417,15 @@
     </footer>
 
     <script>
-        // 1. 初始化系統預設條件（美式休閒）的各大連結與文字
+        // 1. 初始化預設條件（日常美式休閒模式）
         const defaultCloth = "美式休閒 寬鬆重磅 大學T 丹寧牛仔褲";
         const defaultMakeup = "自然裸妝感 霧面唇膏 大地色眼影盤";
         const defaultYT = "美式休閒 穿搭教學 技巧";
 
-        // 設定初始化的畫面文字
         document.getElementById('shopClothKeywords').innerText = defaultCloth;
         document.getElementById('shopMakeupKeywords').innerText = defaultMakeup;
         document.getElementById('ytKeywords').innerText = "「" + defaultYT + "」";
 
-        // 設定初始化的跳轉連結
         document.getElementById('shopClothBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultCloth);
         document.getElementById('shopMakeupBtn').href = "https://shopee.tw/search?keyword=" + encodeURIComponent(defaultMakeup);
         document.getElementById('ytJumpBtn').href = "https://www.youtube.com/results?search_query=" + encodeURIComponent(defaultYT);
@@ -416,6 +437,7 @@
             const submitBtn = document.getElementById('submitBtn');
             const spinner = document.getElementById('loadingSpinner');
             const resultBox = document.getElementById('resultSection');
+            const tryonPreview = document.getElementById('tryonPreview');
             
             submitBtn.disabled = true;
             spinner.style.display = 'block';
@@ -431,29 +453,41 @@
                 const data = await response.json();
                 
                 if(data.status === 'success') {
-                    // 填入核心測算報告
+                    // 核心診斷：包裝成更專業且完整的長篇結構分析報告
                     document.getElementById('imageStatus').innerText = data.image_handling;
-                    document.getElementById('colorAnalysis').innerText = data.report.color_analysis;
-                    document.getElementById('outfitSuggestion').innerText = data.report.outfit_suggestion;
-                    document.getElementById('makeupTip').innerText = data.report.makeup_tip;
-                    document.getElementById('tryonPreview').innerText = data.report.virtual_tryon_preview;
                     
-                    // 動態更新 YouTube 影片大師課連結與條件文字
+                    document.getElementById('colorAnalysis').innerHTML = 
+                        `<strong>【色彩學大師鑑定報告】</strong><br>` +
+                        `${data.report.color_analysis}<br>` +
+                        `<span class="text-muted">專業延伸：此季型色盤在光學矩陣下具有高飽和反射率，建議在日常搭配中作為主色（佔比 60%），並搭配低明度的底色進行層次襯托。避免選用高飽和熒光色，以免破壞原生肌膚的淨透質感。</span>`;
+                    
+                    document.getElementById('outfitSuggestion').innerHTML = 
+                        `<strong>【人體幾何結構與服飾結構提案】</strong><br>` +
+                        `${data.report.outfit_suggestion}<br>` +
+                        `<span class="text-muted">面料學精要：根據您的體態特徵，應優先挑選挺括、具備高磅數支撐力的織物（如重磅精梳棉、密織羊毛或斜紋單寧）。透過衣物本身的物理結構去修飾並重塑身體的微觀線條，進而達到極佳的縱向延伸視覺。</span>`;
+                    
+                    document.getElementById('makeupTip').innerHTML = 
+                        `<strong>【高級美學風格妝容定調方針】</strong><br>` +
+                        `${data.report.makeup_tip}<br>` +
+                        `<span class="text-muted">彩妝實作細節：妝容的核心重點在於「高低明度對比與面部折疊度的重塑」。底妝應著重強調面中區塊的飽滿度與微光感；眼妝部分則建議運用低飽和度的階梯式暈染法深邃眼窩，唇部則需呼應穿搭風格選擇啞霧或高光澤水光質地。</span>`;
+                    
+                    // 確保 AI 虛擬試衣渲染狀態絕對顯現並被寫入
+                    tryonPreview.innerText = data.report.virtual_tryon_preview;
+                    
+                    // 動態更新各大導購、影片與地圖定位連結
                     document.getElementById('ytKeywords').innerText = "「" + data.report.youtube_search_keywords + "」";
                     document.getElementById('ytJumpBtn').href = data.report.youtube_search_url;
                     
-                    // 動態更新地理位置與地圖
                     document.getElementById('mapKeywords').innerText = data.report.map_search_keywords;
                     document.getElementById('mapFrame').src = data.report.google_map_url;
                     
-                    // 動態更新購物導購關鍵字與電商網址
                     document.getElementById('shopClothKeywords').innerText = data.report.shop_cloth_keywords;
                     document.getElementById('shopClothBtn').href = data.report.shopee_cloth_url;
                     
                     document.getElementById('shopMakeupKeywords').innerText = data.report.shop_makeup_keywords;
                     document.getElementById('shopMakeupBtn').href = data.report.shopee_makeup_url;
                     
-                    // 動態浮現結果區
+                    // 流暢滑入並顯示結果
                     resultBox.style.display = 'block';
                     resultBox.scrollIntoView({ behavior: 'smooth' });
                 }
